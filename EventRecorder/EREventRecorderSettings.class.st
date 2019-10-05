@@ -35,7 +35,7 @@ EREventRecorderSettings class >> url [
 
 { #category : #accessing }
 EREventRecorderSettings class >> url: aZnUrl [
-	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ].
+	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ]
 ]
 
 { #category : #settings }

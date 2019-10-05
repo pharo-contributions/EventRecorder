@@ -8,13 +8,26 @@ Class {
 BaselineOfEventRecorder >> baseline: spec [
   <baseline>
   spec
-    for: #(common)
-    do: [ 
+    for: #common do: [ 
       spec
 			package: 'EventRecorder' 
 			with: [ spec requires: #('System-Identification' 
-													'Compression' 'Fuel-Core' 'STON-Core' 'Zinc-HTTP' 'Help-Core') ]    
+													'Compression'  'STON-Core' 'Zinc-HTTP')].
+		spec 
+			package: 'EventRecorder-Fuel'
+			with: [ spec requires: #( 'Fuel-Core' 'EventRecorder' ) ].
+		spec 
+			package: 'EventRecorder-Inspector'
+			with: [ spec requires: #( 'EventRecorder' ) ].
+		spec 
+			package: 'EventRecorder-Help'
+			with: [ spec requires: #( 'EventRecorder' 'HelpSystem-Core') ].
 		"should be better done"
-		"spec postLoadDoIt: #postLoadActions" ]
+		"spec postLoadDoIt: #postLoadActions" 
+		spec 
+			group: 'Core' with: #('EventRecorder' );
+			group: 'All' with: #('EventRecorder' 'EventRecorder-Fuel' 'EventRecorder-Help' 'EventRecorder-Inspector')
+		
+		]
 
 ]

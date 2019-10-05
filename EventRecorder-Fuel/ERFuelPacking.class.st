@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'migrations'
 	],
-	#category : #'EventRecorder-Support'
+	#category : #'EventRecorder-Fuel'
 }
 
 { #category : #adding }

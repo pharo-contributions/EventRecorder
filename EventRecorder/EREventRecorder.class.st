@@ -52,10 +52,10 @@ EREventRecorder class >> initializeUniqueInstance [
 ]
 
 { #category : #testing }
-EREventRecorder class >> isGlobalRecorder: aGTEventRecorder [
+EREventRecorder class >> isGlobalRecorder: anEventRecorder [
 	^ uniqueInstance 
 			ifNil: false
-			ifNotNil: [ :anInstance | anInstance == aGTEventRecorder  ]
+			ifNotNil: [ :anInstance | anInstance == anEventRecorder ]
 ]
 
 { #category : #initialization }
@@ -140,26 +140,6 @@ EREventRecorder >> deliveryPreSuspendingAction: aBlockClosure [
 EREventRecorder >> flush [
 	"Be careful! You will lost all data."
 	collectors do: #flush
-]
-
-{ #category : #'gt-inspector-extension' }
-EREventRecorder >> gtInspectorActionHelp [
-	<gtInspectorAction>
-	^ GLMGenericAction new
-		action: [:b | 
-		HelpBrowser open selectTopicSatisfying: [:each |
-			each owner notNil and:  [
-			(each owner key = EREventRecorderHelp key) and: [
-				each title = 'Client' ] ] ] ];
-		icon: GLMUIThemeExtraIcons glamorousHelp;
-		title: 'Help'
-]
-
-{ #category : #'gt-inspector-extension' }
-EREventRecorder >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ collectors ifNotNil: [ 
-			(collectors gtInspectorItemsIn: composite) ]
 ]
 
 { #category : #initialization }

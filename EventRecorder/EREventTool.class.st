@@ -9,7 +9,7 @@ Here is the code of the UI to open the settings
 openSettingsBrowser
 	| settingsBrowser window node nodePath |
 	settingsBrowser := SettingBrowser new 
-		changePackageSet: (RPackage organizer packageNamed: 'GT-EventRecorder') asOrderedCollection;
+		changePackageSet: (RPackage organizer packageNamed: 'EventRecorder') asOrderedCollection;
 		yourself.
 	window := settingsBrowser open.
 	window position: Display extent - window extent // 2.
@@ -95,19 +95,6 @@ EREventTool >> ensureLocalDirectory [
 { #category : #api }
 EREventTool >> extract [
 	(ZipArchive new readFrom: self defaultDownloadFilename) extractAllTo: FileLocator workingDirectory.
-]
-
-{ #category : #'gt-inspector-extension' }
-EREventTool >> gtInspectorActionHelp [
-	<gtInspectorAction>
-	^ GLMGenericAction new
-		action: [:b | 
-		HelpBrowser open selectTopicSatisfying: [:each |
-			each owner notNil and:  [
-			(each owner key = EREventRecorderHelp key) and: [
-				each title = 'Data Analysis' ] ] ] ];
-		icon: GLMUIThemeExtraIcons glamorousHelp;
-		title: 'Help'
 ]
 
 { #category : #printing }

@@ -18,19 +18,9 @@ Class {
 	#category : #'EventRecorder-Support'
 }
 
-{ #category : #accessing }
-EREventPacking class >> all [
-	^ {self ston. self fuel}
-]
-
 { #category : #'instance creation' }
 EREventPacking class >> default [
 	^ self ston
-]
-
-{ #category : #'instance creation' }
-EREventPacking class >> fuel [
-	^ ERFuelPacking new
 ]
 
 { #category : #'instance creation' }

@@ -29,8 +29,8 @@ Class {
 }
 
 { #category : #examples }
-EREventAnnouncement class >> gtExampleAnnouncement [
-	<gtExample>
+EREventAnnouncement class >> exampleAnnouncement [
+	<sampleInstance>
 	^ self new
 			data: #[ 1 2 3 4 ];
 			timestamp: DateAndTime now;
@@ -42,17 +42,17 @@ EREventAnnouncement class >> gtExampleAnnouncement [
 ]
 
 { #category : #examples }
-EREventAnnouncement class >> gtExampleEmptyAnnouncement [
-	<gtExample>
+EREventAnnouncement class >> exampleEmptyAnnouncement [
+	<sampleInstance>
 	^ self new
 ]
 
 { #category : #updating }
-EREventAnnouncement >> addInfoFor: aGTSpotterRecorderEvent [ 
-	(aGTSpotterRecorderEvent respondsTo: #infoAt:put:) ifTrue: [
+EREventAnnouncement >> addInfoFor: aRecorderEvent [ 
+	(aRecorderEvent respondsTo: #infoAt:put:) ifTrue: [
 		dictionary keysAndValuesDo: [ :key :value |
 			key = #data ifFalse: [ 
-				aGTSpotterRecorderEvent infoAt: key put: value ] ] ]
+				aRecorderEvent infoAt: key put: value ] ] ]
 ]
 
 { #category : #converting }
@@ -125,41 +125,6 @@ EREventAnnouncement >> events [
 	^ events
 ]
 
-{ #category : #'gt-inspector-extension' }
-EREventAnnouncement >> gtInspectorActionUnpackData [
-	<gtInspectorAction>
-	^ GLMGenericAction new
-		action: [ :composite |
-			composite selection: self unpackedData ];
-		icon: GLMUIThemeExtraIcons glamorousAdd;
-		condition: [ self data isNotNil ];
-		title: 'Unpack data'
-]
-
-{ #category : #'gt-inspector-extension' }
-EREventAnnouncement >> gtInspectorItems [
-	^ OrderedCollection withAll: self associations
-]
-
-{ #category : #'gt-inspector-extension' }
-EREventAnnouncement >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: -1>  
-	^ (composite table)
-		title: 'Info';
-		display: [ :anEvent | anEvent gtInspectorItems ];
-		children: [ :each | 
-			(each value isDictionary) 
-				ifTrue: [ each value associations ] 
-				ifFalse: [ (each value isArray and: [ each value allSatisfy: #isDictionary ])
-						ifTrue: [ each value collectWithIndex: [:x :i | i -> x ] ]
-						ifFalse: [ #() ] ] ];
-		column: 'Key' 
-			evaluated: [:each | GTObjectPrinter asTruncatedTextFrom: each key ];
-		column: 'Value' 
-			evaluated: [:each | GTObjectPrinter asTruncatedTextFrom: each value ];
-		showOnly: 50
-]
-
 { #category : #accessing }
 EREventAnnouncement >> imageHash [
 	^ self at: #imageHash
@@ -208,7 +173,9 @@ EREventAnnouncement >> safeUnpackedData [
 
 { #category : #accessing }
 EREventAnnouncement >> serializedBy [
-	^ self dictionary at: #serializedBy ifAbsent: [ ERFuelPacking name ]
+	^ self dictionary at: #serializedBy ifAbsent: [ EREventPacking default class name ]
+	
+
 ]
 
 { #category : #accessing }

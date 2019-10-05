@@ -54,8 +54,8 @@ Class {
 
 { #category : #examples }
 EREventCollector class >> notRegisteredCollector [
-	<gtExample>
-	<label: 'It collects an integer and a string'>
+	<sampleInstance>
+
 	^ self new
 		category: #testingForFun; "the data are stored under the defined category."
 		occupant: nil; "object that represents your application, if nil, the collector will be removed from GTEventRecorder object once collected data are sent"
@@ -113,19 +113,6 @@ EREventCollector >> defaultCategory [
 EREventCollector >> flush [
 	"Be careful when using it. You will lost all data."
 	recordedEvents flush
-]
-
-{ #category : #'gt-inspector-extension' }
-EREventCollector >> gtInspectorActionHelp [
-	<gtInspectorAction>
-	^ GLMGenericAction new
-		action: [:b | 
-		HelpBrowser open selectTopicSatisfying: [:each |
-			each owner notNil and:  [
-			(each owner key = EREventRecorderHelp key) and: [
-				each title = 'Client' ] ] ] ];
-		icon: GLMUIThemeExtraIcons glamorousHelp;
-		title: 'Help'
 ]
 
 { #category : #initialization }

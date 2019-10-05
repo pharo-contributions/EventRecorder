@@ -36,14 +36,6 @@ EREventCollectors >> do: oneArgBlock [
 	mutex critical: [ collectors do: oneArgBlock ]
 ]
 
-{ #category : #'gt-inspector-extension' }
-EREventCollectors >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: 1>
-	^ collectors ifNotNil: [ 
-			(collectors gtInspectorItemsIn: composite)
-				title: 'Collectors' ]
-]
-
 { #category : #initialization }
 EREventCollectors >> initialize [
 	super initialize.
