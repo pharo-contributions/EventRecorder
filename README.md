@@ -2,7 +2,7 @@
 I'm a little framework to collect data from Pharo and publish it on server.
 
 This framework has been developed by the GT team (probably T. Girba, A. Chis and others). 
-Since this is a cool framework,I decided to invest in it and repackage it to avoid to have everything in a single package.
+Since this is a cool framework to support user experiences and collect that for tool builders, I decided to invest in it and repackage it to avoid to have everything in a single package.
 
 The vision is to have several packages. 
 
