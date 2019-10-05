@@ -17,7 +17,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventConsolidate,
+	#name : #EREventConsolidate,
 	#superclass : #Object,
 	#instVars : [
 		'collectors'
@@ -26,18 +26,18 @@ Class {
 }
 
 { #category : #accessing }
-GTEventConsolidate >> collectors: aCollection [ 
+EREventConsolidate >> collectors: aCollection [ 
 	collectors := aCollection
 ]
 
 { #category : #'accessing - computed' }
-GTEventConsolidate >> consolidated [
+EREventConsolidate >> consolidated [
 	| consolidatedCollectors |
 	consolidatedCollectors := OrderedDictionary new.
 	collectors do: [ :eachCollector | | aCollector |
 		aCollector := consolidatedCollectors 
 								at: (eachCollector url printString, '/', eachCollector category) asSymbol
-								ifAbsentPut: [ GTEventCollector new 
+								ifAbsentPut: [ EREventCollector new 
 														url: eachCollector url; 
 														category: eachCollector category;
 														yourself ].

@@ -24,38 +24,38 @@ openSettingsBrowser
 
 "
 Class {
-	#name : #GTEventTool,
+	#name : #EREventTool,
 	#superclass : #Object,
 	#category : #'EventRecorder-Core'
 }
 
 { #category : #accessing }
-GTEventTool class >> default [
+EREventTool class >> default [
 	^ self new
 ]
 
 { #category : #configuration }
-GTEventTool >> defaultDownloadDirectory [
+EREventTool >> defaultDownloadDirectory [
 	^ FileSystem disk workingDirectory
 ]
 
 { #category : #configuration }
-GTEventTool >> defaultDownloadFilename [
+EREventTool >> defaultDownloadFilename [
 	^ self defaultDownloadDirectory / 'gt-events.zip'
 ]
 
 { #category : #configuration }
-GTEventTool >> defaultEventsDirectory [
+EREventTool >> defaultEventsDirectory [
 	^ self defaultDownloadDirectory / 'gt' / 'events'
 ]
 
 { #category : #private }
-GTEventTool >> defaultUrl [
+EREventTool >> defaultUrl [
 	^ 'http://gc.dcc.uchile.cl/gt-events.zip'
 ]
 
 { #category : #api }
-GTEventTool >> download [
+EREventTool >> download [
 	"self default download"
  	UIManager default informUserDuring: [ :bar |
 		bar label: 'Downloading Spotter Event Data...'.
@@ -75,17 +75,17 @@ GTEventTool >> download [
 ]
 
 { #category : #api }
-GTEventTool >> ensureDownloadedData [
+EREventTool >> ensureDownloadedData [
 	self defaultDownloadFilename exists ifFalse: [ self download ]
 ]
 
 { #category : #api }
-GTEventTool >> ensureExtractedData [
+EREventTool >> ensureExtractedData [
 	self defaultEventsDirectory exists ifFalse: [ self extract ]
 ]
 
 { #category : #api }
-GTEventTool >> ensureLocalDirectory [
+EREventTool >> ensureLocalDirectory [
 	"self default ensureLocalDirectory"
 	self 
 		ensureDownloadedData;
@@ -93,25 +93,25 @@ GTEventTool >> ensureLocalDirectory [
 ]
 
 { #category : #api }
-GTEventTool >> extract [
+EREventTool >> extract [
 	(ZipArchive new readFrom: self defaultDownloadFilename) extractAllTo: FileLocator workingDirectory.
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventTool >> gtInspectorActionHelp [
+EREventTool >> gtInspectorActionHelp [
 	<gtInspectorAction>
 	^ GLMGenericAction new
 		action: [:b | 
 		HelpBrowser open selectTopicSatisfying: [:each |
 			each owner notNil and:  [
-			(each owner key = GTEventRecorderHelp key) and: [
+			(each owner key = EREventRecorderHelp key) and: [
 				each title = 'Data Analysis' ] ] ] ];
 		icon: GLMUIThemeExtraIcons glamorousHelp;
 		title: 'Help'
 ]
 
 { #category : #printing }
-GTEventTool >> printHumanReadableSize: aTotalNumber [
+EREventTool >> printHumanReadableSize: aTotalNumber [
 	| humanReadable length unit |
 	length := ((aTotalNumber decimalDigitLength / 3) truncated) - 1 max: 0.
 	humanReadable := (aTotalNumber / (1024 raisedTo: (length min: 3))) rounded.
@@ -123,17 +123,17 @@ GTEventTool >> printHumanReadableSize: aTotalNumber [
 ]
 
 { #category : #api }
-GTEventTool >> unpackAll [
+EREventTool >> unpackAll [
 	"self default unpackAll inspect"
 	self ensureLocalDirectory.
-	^ GTEventUnpacking default safeUnpackDirectory: self defaultEventsDirectory.
+	^ EREventUnpacking default safeUnpackDirectory: self defaultEventsDirectory.
 ]
 
 { #category : #api }
-GTEventTool >> unpackAll: aFileReference [
+EREventTool >> unpackAll: aFileReference [
 	"self default unpackAll: './gt/events' asFileReference.
 	self default unpackAll: './gt/events/roassal2Examples' asFileReference.
 	" 
 	self ensureLocalDirectory.
-	^ GTEventUnpacking default safeUnpackDirectory: aFileReference.
+	^ EREventUnpacking default safeUnpackDirectory: aFileReference.
 ]

@@ -25,7 +25,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventUnpacking,
+	#name : #EREventUnpacking,
 	#superclass : #Object,
 	#instVars : [
 		'packings'
@@ -34,44 +34,44 @@ Class {
 }
 
 { #category : #'instance creation' }
-GTEventUnpacking class >> default [
+EREventUnpacking class >> default [
 	^ self new
-			addPacking: GTEventPacking fuel;
-			addPacking: GTEventPacking ston;
+			addPacking: EREventPacking fuel;
+			addPacking: EREventPacking ston;
 			yourself
 ]
 
 { #category : #adding }
-GTEventUnpacking >> addPacking: aGTEventPacking [ 
+EREventUnpacking >> addPacking: aGTEventPacking [ 
 	^ self packings addLast: aGTEventPacking
 ]
 
 { #category : #accessing }
-GTEventUnpacking >> packings [
+EREventUnpacking >> packings [
 	^ packings ifNil: [ packings := OrderedCollection new ]
 ]
 
 { #category : #packing }
-GTEventUnpacking >> safeUnpackDirectory: aFileReference [
+EREventUnpacking >> safeUnpackDirectory: aFileReference [
 	"self default safeUnpackDirectory: './gt/events/' asFileReference"
 	| unpackedData exceptions |
 	exceptions := OrderedCollection new.
-	[ unpackedData := self unpackDirectory: aFileReference ] on: GTEventUnpackingError do: [ :exception |
+	[ unpackedData := self unpackDirectory: aFileReference ] on: EREventUnpackingError do: [ :exception |
 		exceptions addLast: exception.
 		exception resume ].
 	^ unpackedData -> exceptions
 ]
 
 { #category : #packing }
-GTEventUnpacking >> unpack: aByteArray [
+EREventUnpacking >> unpack: aByteArray [
 	| exceptions |
 	exceptions := OrderedCollection new: self packings size.
 	self packings do: [ :eachEventPacking |
 		[ ^ eachEventPacking unpack: aByteArray ] on: Error
 			do: [ :exception | exceptions addLast: exception ] ].
 	exceptions
-		ifEmpty: [ GTEventInitializationError signal: 'Uninitialized unpacking system' ]
-		ifNotEmpty: [ GTEventUnpackingError 
+		ifEmpty: [ EREventInitializationError signal: 'Uninitialized unpacking system' ]
+		ifNotEmpty: [ EREventUnpackingError 
 								signal: 'Cannot unpack data' 
 								data: aByteArray 
 								errors: exceptions ].
@@ -80,7 +80,7 @@ GTEventUnpacking >> unpack: aByteArray [
 ]
 
 { #category : #packing }
-GTEventUnpacking >> unpackDirectory: aFileReference [
+EREventUnpacking >> unpackDirectory: aFileReference [
 	"self default unpackDirectory: './gt/events/' asFileReference"
 	^ aFileReference asFileReference allFiles 
 			collect: [ :eachFile | 
@@ -91,10 +91,10 @@ GTEventUnpacking >> unpackDirectory: aFileReference [
 ]
 
 { #category : #packing }
-GTEventUnpacking >> unpackFile: aFileReference [
+EREventUnpacking >> unpackFile: aFileReference [
 	"self default unpackFile: './gt/events/' asFileReference allFiles atRandom"
 	^ [ self unpack: (aFileReference binaryReadStreamDo: [ :aStream |  aStream contents ]) ]
-		on: GTEventUnpackingError do: [ :anException |
+		on: EREventUnpackingError do: [ :anException |
 			anException data: aFileReference.
 			anException pass ]
 ]

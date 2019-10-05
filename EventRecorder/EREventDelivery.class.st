@@ -13,7 +13,7 @@ Public API and Key Messages
 - #deliveryCycle implements  the main logic of the delivery process
 "
 Class {
-	#name : #GTEventDelivery,
+	#name : #EREventDelivery,
 	#superclass : #Object,
 	#instVars : [
 		'mutex',
@@ -28,7 +28,7 @@ Class {
 }
 
 { #category : #activation }
-GTEventDelivery >> activate [
+EREventDelivery >> activate [
 	"Initialize a delivery process."
 	^ mutex critical: [ 
 			self offerPermission.
@@ -37,22 +37,22 @@ GTEventDelivery >> activate [
 ]
 
 { #category : #adding }
-GTEventDelivery >> add: aGTEventBundle [
+EREventDelivery >> add: aGTEventBundle [
 	queue nextPut: aGTEventBundle
 ]
 
 { #category : #announce }
-GTEventDelivery >> announceSuspendingDelivery [
+EREventDelivery >> announceSuspendingDelivery [
 	preSuspendingAction ifNotNil: #value
 ]
 
 { #category : #accessing }
-GTEventDelivery >> announcer [
+EREventDelivery >> announcer [
 	^ self recorder ifNotNil: #announcer
 ]
 
 { #category : #delivery }
-GTEventDelivery >> bundles [
+EREventDelivery >> bundles [
 	"Be careful about using this method. You will loose data if you call it externaly."
 	| eventBundles |
 	eventBundles := OrderedCollection new.
@@ -61,7 +61,7 @@ GTEventDelivery >> bundles [
 ]
 
 { #category : #deactivation }
-GTEventDelivery >> deactivate [
+EREventDelivery >> deactivate [
 	^ mutex critical: [ | oldProcess |
 		self withdrawPermission.
 		delay ifNotNil: [ :aDelay | aDelay delaySemaphore signal ].
@@ -71,15 +71,15 @@ GTEventDelivery >> deactivate [
 ]
 
 { #category : #delivery }
-GTEventDelivery >> deliver: aBoolean [
+EREventDelivery >> deliver: aBoolean [
 	| bundles |
-	bundles := GTEventMultiBundleFactory fromBundles: self bundles.
+	bundles := EREventMultiBundleFactory fromBundles: self bundles.
 	bundles do: [ :eachGTEventMultiBundle |
 		self deliver: eachGTEventMultiBundle signalProgress: aBoolean ]
 ]
 
 { #category : #delivery }
-GTEventDelivery >> deliver: aGTEventMultiBundle signalProgress: aBoolean [
+EREventDelivery >> deliver: aGTEventMultiBundle signalProgress: aBoolean [
 	^ (ZnClient new
 			beOneShot;
 			timeout: 5;
@@ -94,7 +94,7 @@ GTEventDelivery >> deliver: aGTEventMultiBundle signalProgress: aBoolean [
 ]
 
 { #category : #initialization }
-GTEventDelivery >> deliveryCycle [
+EREventDelivery >> deliveryCycle [
 	delay := self standardDuration asDelay.
 	self announceSuspendingDelivery.
 	delay wait.
@@ -103,12 +103,12 @@ GTEventDelivery >> deliveryCycle [
 ]
 
 { #category : #testing }
-GTEventDelivery >> hasPermission [
+EREventDelivery >> hasPermission [
 	^ permission
 ]
 
 { #category : #initialization }
-GTEventDelivery >> initialize [
+EREventDelivery >> initialize [
 	super initialize.
 	mutex := Mutex new.
 	queue := WaitfreeQueue new.
@@ -116,26 +116,26 @@ GTEventDelivery >> initialize [
 ]
 
 { #category : #initialization }
-GTEventDelivery >> initializeProcess [
+EREventDelivery >> initializeProcess [
 	process := [ [ self hasPermission ] whileTrue: [ self deliveryCycle ] ]
 		forkAt: Processor userBackgroundPriority
 		named: self printProcessName
 ]
 
 { #category : #testing }
-GTEventDelivery >> isActive [
+EREventDelivery >> isActive [
 	^ self isInactive not
 ]
 
 { #category : #testing }
-GTEventDelivery >> isGlobalRecorder [
+EREventDelivery >> isGlobalRecorder [
 	^ self recorder 
 			ifNil: false
 			ifNotNil: #isGlobalRecorder
 ]
 
 { #category : #testing }
-GTEventDelivery >> isInactive [
+EREventDelivery >> isInactive [
 	^ mutex critical: [ 
 		process isNil or: [
 			process isTerminated or: [
@@ -143,30 +143,30 @@ GTEventDelivery >> isInactive [
 ]
 
 { #category : #delivery }
-GTEventDelivery >> now [
+EREventDelivery >> now [
 	"for testing purpose"
 	delay ifNotNil: [ :aDelay | aDelay delaySemaphore signal. aDelay unschedule. ]
 ]
 
 { #category : #activation }
-GTEventDelivery >> offerPermission [
+EREventDelivery >> offerPermission [
 	mutex critical: [ permission := true ]
 ]
 
 { #category : #delivery }
-GTEventDelivery >> packAndDeliver: aBoolean [
+EREventDelivery >> packAndDeliver: aBoolean [
 	recorder pack.
 	self deliver: aBoolean.
 	
 ]
 
 { #category : #initialization }
-GTEventDelivery >> preSuspendingAction: aBlockClosure [ 
+EREventDelivery >> preSuspendingAction: aBlockClosure [ 
 	preSuspendingAction := aBlockClosure
 ]
 
 { #category : #printing }
-GTEventDelivery >> printOn: aStream [
+EREventDelivery >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		space;
@@ -190,13 +190,13 @@ GTEventDelivery >> printOn: aStream [
 ]
 
 { #category : #printing }
-GTEventDelivery >> printProcessName [
+EREventDelivery >> printProcessName [
 	^ String streamContents: [ :aStream |
 		self printProcessNameOn: aStream ]
 ]
 
 { #category : #printing }
-GTEventDelivery >> printProcessNameOn: aStream [
+EREventDelivery >> printProcessNameOn: aStream [
 	aStream
 		nextPutAll: self className.
 	self isGlobalRecorder
@@ -206,26 +206,26 @@ GTEventDelivery >> printProcessNameOn: aStream [
 ]
 
 { #category : #accessing }
-GTEventDelivery >> recorder [
+EREventDelivery >> recorder [
 	^ recorder
 ]
 
 { #category : #accessing }
-GTEventDelivery >> recorder: anObject [
+EREventDelivery >> recorder: anObject [
 	recorder := anObject
 ]
 
 { #category : #accessing }
-GTEventDelivery >> size [
+EREventDelivery >> size [
 	^ queue size
 ]
 
 { #category : #accessing }
-GTEventDelivery >> standardDuration [
+EREventDelivery >> standardDuration [
 	^ 20 minutes
 ]
 
 { #category : #deactivation }
-GTEventDelivery >> withdrawPermission [
+EREventDelivery >> withdrawPermission [
 	mutex critical: [ permission := false ]
 ]

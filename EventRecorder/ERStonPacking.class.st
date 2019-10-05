@@ -2,13 +2,13 @@
 I serialize or materialize objects using STON framework. Create instance of me calling GTEventPacking ston.
 "
 Class {
-	#name : #GTStonPacking,
-	#superclass : #GTEventPacking,
+	#name : #ERStonPacking,
+	#superclass : #EREventPacking,
 	#category : #'EventRecorder-Support'
 }
 
 { #category : #private }
-GTStonPacking >> materialize: aByteArray [
+ERStonPacking >> materialize: aByteArray [
 	| stream gzstream |
 	stream := aByteArray asString readStream.
 	gzstream := GZipReadStream on: stream.
@@ -16,7 +16,7 @@ GTStonPacking >> materialize: aByteArray [
 ]
 
 { #category : #private }
-GTStonPacking >> serialize: anObject [
+ERStonPacking >> serialize: anObject [
 	^ (String streamContents: [ :stream | | gzstream |
 		gzstream := GZipWriteStream on: stream.
 		[ STON put: anObject onStreamPretty: gzstream ]
@@ -24,6 +24,6 @@ GTStonPacking >> serialize: anObject [
 ]
 
 { #category : #accessing }
-GTStonPacking >> technologyName [
+ERStonPacking >> technologyName [
 	^ 'ston'
 ]

@@ -21,13 +21,13 @@ Gofer it
 	loadStable.
 "
 Class {
-	#name : #GTEventRecorderHelp,
+	#name : #EREventRecorderHelp,
 	#superclass : #CustomHelp,
 	#category : #'EventRecorder-Help'
 }
 
 { #category : #pages }
-GTEventRecorderHelp class >> analysis [
+EREventRecorderHelp class >> analysis [
 	^HelpTopic 
 		title: 'Data Analysis'
 		contents:	
@@ -64,17 +64,17 @@ GTEventRecorderHelp class >> analysis [
 ]
 
 { #category : #accessing }
-GTEventRecorderHelp class >> bookDescription [
+EREventRecorderHelp class >> bookDescription [
 	^ 'Here, we describe GT Event Recorder, a moldable infrastructure, that allows to capture and store events that are specific to different tools. It is composed of a client and a server that we describe in the following sections. The last section describes basic analysis support.'
 ]
 
 { #category : #accessing }
-GTEventRecorderHelp class >> bookName [
+EREventRecorderHelp class >> bookName [
 	^ 'GT Event Recorder'
 ]
 
 { #category : #pages }
-GTEventRecorderHelp class >> client [
+EREventRecorderHelp class >> client [
 	^HelpTopic 
 		title: 'Client'
 		contents:	 (String streamContents: [ :aStream | aStream 
@@ -88,7 +88,7 @@ nextPutAll:
 	It sends data to the server every twenty minutes. If you want to send data immediately, you can execute `GTEventRecorder uniqueInstance deliverNow`.
 
 	Here is the class description:';
-nextPutAll: GTEventRecorder comment;
+nextPutAll: EREventRecorder comment;
 cr;
 nextPutAll: 
 '!! GTEventCollector
@@ -108,11 +108,11 @@ nextPutAll:
 	Before the data are sent to the server, it is serialized and kept by an GTEventAnnouncement object who also keeps additional information, e.g., computer-id, data and time. The additional information helps you to group collected data per computer and order them according to time. For that reason, we recommend you to collect objects that responds to #infoAt:put:. If so, the additional information is passed to your extracted data.  GTBasicRecorderEvent class represents a basic example that we recommend to use, e.g., subclass it. 
 
 	Here is the class description:';
-nextPutAll: GTEventCollector comment ])
+nextPutAll: EREventCollector comment ])
 ]
 
 { #category : #pages }
-GTEventRecorderHelp class >> introduction [
+EREventRecorderHelp class >> introduction [
 	^HelpTopic 
 		title: 'Introduction'
 		contents:	
@@ -124,12 +124,12 @@ GTEventRecorderHelp class >> introduction [
 ]
 
 { #category : #accessing }
-GTEventRecorderHelp class >> pages [
+EREventRecorderHelp class >> pages [
 	^ #(introduction client server analysis)
 ]
 
 { #category : #pages }
-GTEventRecorderHelp class >> server [
+EREventRecorderHelp class >> server [
 	^HelpTopic 
 		title: 'Server'
 		contents:	

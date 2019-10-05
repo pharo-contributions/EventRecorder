@@ -2,7 +2,7 @@
 I represent a basic event for the event recorder.
 "
 Class {
-	#name : #GTBasicRecorderEvent,
+	#name : #ERBasicRecorderEvent,
 	#superclass : #Object,
 	#instVars : [
 		'info',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #comparing }
-GTBasicRecorderEvent >> = otherEvent [
+ERBasicRecorderEvent >> = otherEvent [
 
 	^ self class == otherEvent class
 	and: [ (self info = otherEvent info)
@@ -20,118 +20,118 @@ GTBasicRecorderEvent >> = otherEvent [
 ]
 
 { #category : #'accessing - announcement info' }
-GTBasicRecorderEvent >> announcementTimestamp [
+ERBasicRecorderEvent >> announcementTimestamp [
 	^ self infoAt: #timestamp ifAbsent: [ self timestamp ]
 ]
 
 { #category : #'accessing - announcement info' }
-GTBasicRecorderEvent >> computerUUID [
-	^ self infoAt: #computerUUID ifAbsent: [ GlobalIdentifier uniqueInstance computerUUID asString ]
+ERBasicRecorderEvent >> computerUUID [
+	^ self infoAt: #computerUUID ifAbsent: [ ERGlobalIdentifier uniqueInstance computerUUID asString ]
 ]
 
 { #category : #'accessing - announcement info' }
-GTBasicRecorderEvent >> eventRecorderVersion [
-	^ self infoAt: #eventRecorderVersion ifAbsent: [ GTEventPacking new version ]
+ERBasicRecorderEvent >> eventRecorderVersion [
+	^ self infoAt: #eventRecorderVersion ifAbsent: [ EREventPacking new version ]
 ]
 
 { #category : #comparing }
-GTBasicRecorderEvent >> hash [
+ERBasicRecorderEvent >> hash [
 	^ self info hash bitXor: self timestamp hash
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> hashForText: aString [
+ERBasicRecorderEvent >> hashForText: aString [
 	^ self settings obfuscateIfNecessary: aString
 ]
 
 { #category : #'accessing - announcement info' }
-GTBasicRecorderEvent >> imageHash [
+ERBasicRecorderEvent >> imageHash [
 	^ self infoAt: #imageHash ifAbsent: [ SmalltalkImage current imagePath hash ]
 ]
 
 { #category : #'accessing - announcement info' }
-GTBasicRecorderEvent >> imageVersion [
+ERBasicRecorderEvent >> imageVersion [
 	^ self infoAt: #imageVersion ifAbsent: [ SystemVersion current version ]
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> info [
+ERBasicRecorderEvent >> info [
 	^ info ifNil: [ info := Dictionary new ].
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> infoAt: aSymbol [
+ERBasicRecorderEvent >> infoAt: aSymbol [
 	^ info at: aSymbol
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> infoAt: key ifAbsent: absentBlock [
+ERBasicRecorderEvent >> infoAt: key ifAbsent: absentBlock [
 	info ifNil: [ ^ absentBlock value].
 	^ info at: key ifAbsent: absentBlock
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> infoAt: key ifAbsentPut: putBlock [
+ERBasicRecorderEvent >> infoAt: key ifAbsentPut: putBlock [
 	info ifNil: [ info := Dictionary new ].
 	^ info at: key ifAbsentPut: putBlock
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> infoAt: key ifPresent: presentBlock ifAbsent: absentBlock [
+ERBasicRecorderEvent >> infoAt: key ifPresent: presentBlock ifAbsent: absentBlock [
 	info ifNil: [ ^ absentBlock value].
 	^ info at: key ifPresent: presentBlock ifAbsent: absentBlock
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> infoAt: key put: value [
+ERBasicRecorderEvent >> infoAt: key put: value [
 	info ifNil: [ info := Dictionary new ].
 	^ info at: key put: value
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> infoAt: key putHashForText: valueString [ 
+ERBasicRecorderEvent >> infoAt: key putHashForText: valueString [ 
 	^ self 
 		infoAt: key 
 		put: (self hashForText: valueString)
 ]
 
 { #category : #initialization }
-GTBasicRecorderEvent >> initialize [
+ERBasicRecorderEvent >> initialize [
 	super initialize.
 	timestamp := DateAndTime now.
 ]
 
 { #category : #initialization }
-GTBasicRecorderEvent >> initializeObfuscated [
-	self obfuscated: Privacy sendEntityNames not.
+ERBasicRecorderEvent >> initializeObfuscated [
+	self obfuscated: ERPrivacy sendEntityNames not.
 ]
 
 { #category : #'accessing - announcement info' }
-GTBasicRecorderEvent >> latestUpdate [
+ERBasicRecorderEvent >> latestUpdate [
 	^ self infoAt: #latestUpdate ifAbsent: [ SystemVersion current highestUpdate ]
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> obfuscated [
+ERBasicRecorderEvent >> obfuscated [
 	^ self infoAt: #obfuscated ifAbsent: true
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> obfuscated: aBoolean [
+ERBasicRecorderEvent >> obfuscated: aBoolean [
 	^ self infoAt: #obfuscated put: aBoolean
 ]
 
 { #category : #'accessing - announcement info' }
-GTBasicRecorderEvent >> sessionCreationTime [
+ERBasicRecorderEvent >> sessionCreationTime [
 	^ self infoAt: #sessionCreationTime ifAbsent: [ SmalltalkImage current session creationTime ]
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> settings [
-	^ GlobalIdentifier uniqueInstance
+ERBasicRecorderEvent >> settings [
+	^ ERGlobalIdentifier uniqueInstance
 ]
 
 { #category : #accessing }
-GTBasicRecorderEvent >> timestamp [
+ERBasicRecorderEvent >> timestamp [
 	^ timestamp
 ]

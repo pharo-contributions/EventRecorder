@@ -4,7 +4,7 @@ I represents Privacy settings. You can open Settings Browser and see Privacy gro
 Execute: SettingBrowser open
 "
 Class {
-	#name : #GTEventRecorderSettings,
+	#name : #EREventRecorderSettings,
 	#superclass : #Object,
 	#classInstVars : [
 		'url'
@@ -13,33 +13,33 @@ Class {
 }
 
 { #category : #cleanup }
-GTEventRecorderSettings class >> cleanUp [
+EREventRecorderSettings class >> cleanUp [
 	"Clean settings."
 	url := nil
 ]
 
 { #category : #accessing }
-GTEventRecorderSettings class >> stringUrl [
+EREventRecorderSettings class >> stringUrl [
 	^ self url asString
 ]
 
 { #category : #accessing }
-GTEventRecorderSettings class >> stringUrl: aUrlString [
+EREventRecorderSettings class >> stringUrl: aUrlString [
 	^ self url: aUrlString
 ]
 
 { #category : #accessing }
-GTEventRecorderSettings class >> url [
+EREventRecorderSettings class >> url [
 	^ url ifNil: [ url := 'http://gc.dcc.uchile.cl.:8080/gt/events' asZnUrl ]
 ]
 
 { #category : #accessing }
-GTEventRecorderSettings class >> url: aZnUrl [
+EREventRecorderSettings class >> url: aZnUrl [
 	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ].
 ]
 
 { #category : #settings }
-GTEventRecorderSettings class >> urlSettingsOn: aBuilder [ 
+EREventRecorderSettings class >> urlSettingsOn: aBuilder [ 
 	<systemsettings>	
 	(aBuilder setting: #stringUrl)
 		parent: #gt;

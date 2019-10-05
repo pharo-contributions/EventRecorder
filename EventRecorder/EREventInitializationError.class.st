@@ -5,7 +5,7 @@ Collaborators: GTEventUnpacking
 
 "
 Class {
-	#name : #GTEventInitializationError,
-	#superclass : #GTEventRecorderError,
+	#name : #EREventInitializationError,
+	#superclass : #EREventRecorderError,
 	#category : #'EventRecorder-Exceptions'
 }

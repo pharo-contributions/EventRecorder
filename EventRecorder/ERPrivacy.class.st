@@ -15,7 +15,7 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #Privacy,
+	#name : #ERPrivacy,
 	#superclass : #Object,
 	#classInstVars : [
 		'sendDiagnosticsAndUsageData',
@@ -26,7 +26,7 @@ Class {
 }
 
 { #category : #cleanup }
-Privacy class >> cleanUp [
+ERPrivacy class >> cleanUp [
 	"Clean settings."
 	sendDiagnosticsAndUsageData := nil.
 	sendEntityNames := nil.
@@ -34,7 +34,7 @@ Privacy class >> cleanUp [
 ]
 
 { #category : #settings }
-Privacy class >> privacySettingsOn: aBuilder [
+ERPrivacy class >> privacySettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder group: #privacy)
 		label: 'Privacy';
@@ -43,19 +43,19 @@ Privacy class >> privacySettingsOn: aBuilder [
 ]
 
 { #category : #accessing }
-Privacy class >> sendDiagnosticsAndUsageData [
+ERPrivacy class >> sendDiagnosticsAndUsageData [
 	^ sendDiagnosticsAndUsageData ifNil: [ sendDiagnosticsAndUsageData := false ]
 ]
 
 { #category : #accessing }
-Privacy class >> sendDiagnosticsAndUsageData: aBoolean [
+ERPrivacy class >> sendDiagnosticsAndUsageData: aBoolean [
 	sendDiagnosticsAndUsageData = aBoolean ifTrue: [ ^ self ].
 	sendDiagnosticsAndUsageData := aBoolean.
-	SystemAnnouncer uniqueInstance announce: PrivacyChangedAnnouncement.
+	SystemAnnouncer uniqueInstance announce: ERPrivacyChangedAnnouncement.
 ]
 
 { #category : #settings }
-Privacy class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
+ERPrivacy class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendDiagnosticsAndUsageData)
 		label: 'Send diagnostics and usage data';
@@ -66,17 +66,17 @@ Privacy class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 ]
 
 { #category : #accessing }
-Privacy class >> sendEntityNames [
+ERPrivacy class >> sendEntityNames [
 	^ sendEntityNames ifNil: [ sendEntityNames := false ]
 ]
 
 { #category : #accessing }
-Privacy class >> sendEntityNames: aBoolean [
+ERPrivacy class >> sendEntityNames: aBoolean [
 	sendEntityNames := aBoolean
 ]
 
 { #category : #settings }
-Privacy class >> sendEntityNamesSettingsOn: aBuilder [
+ERPrivacy class >> sendEntityNamesSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendEntityNames)
 		label: 'Include package/class/method names';
@@ -87,17 +87,17 @@ Privacy class >> sendEntityNamesSettingsOn: aBuilder [
 ]
 
 { #category : #accessing }
-Privacy class >> sendSourceCode [
+ERPrivacy class >> sendSourceCode [
 	^ sendSourceCode ifNil: [ sendSourceCode := false ]
 ]
 
 { #category : #accessing }
-Privacy class >> sendSourceCode: aBoolean [
+ERPrivacy class >> sendSourceCode: aBoolean [
 	sendSourceCode := aBoolean
 ]
 
 { #category : #settings }
-Privacy class >> sendSourceCodeSettingsOn: aBuilder [
+ERPrivacy class >> sendSourceCodeSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendSourceCode)
 		label: 'Include source code';

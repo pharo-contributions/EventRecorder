@@ -40,7 +40,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventCollector,
+	#name : #EREventCollector,
 	#superclass : #Object,
 	#instVars : [
 		'url',
@@ -53,7 +53,7 @@ Class {
 }
 
 { #category : #examples }
-GTEventCollector class >> notRegisteredCollector [
+EREventCollector class >> notRegisteredCollector [
 	<gtExample>
 	<label: 'It collects an integer and a string'>
 	^ self new
@@ -66,94 +66,94 @@ GTEventCollector class >> notRegisteredCollector [
 ]
 
 { #category : #adding }
-GTEventCollector >> add: anEvent [ 
+EREventCollector >> add: anEvent [ 
 	"And an event (any object) that you want to send to a server."
 	^ recordedEvents nextPut: anEvent
 ]
 
 { #category : #adding }
-GTEventCollector >> addIfAvailable: anEvent [
+EREventCollector >> addIfAvailable: anEvent [
 	"It add event to a queue only if sending diagnostic and usage data is enabled."
-	Privacy sendDiagnosticsAndUsageData ifFalse: [ ^ anEvent ].	
+	ERPrivacy sendDiagnosticsAndUsageData ifFalse: [ ^ anEvent ].	
 	^ self add: anEvent
 ]
 
 { #category : #accessing }
-GTEventCollector >> bundle [
+EREventCollector >> bundle [
 	"It returns all collected events that are supposed to be sent. If you need to send just a portion of the collected events, this is the place to overwrite."
 	^ self bundle: OrderedCollection new.
 ]
 
 { #category : #accessing }
-GTEventCollector >> bundle: aCollection [
+EREventCollector >> bundle: aCollection [
 	recordedEvents flush: [ :eachEvent | aCollection addLast: eachEvent ].
 	^ aCollection
 ]
 
 { #category : #accessing }
-GTEventCollector >> category [
+EREventCollector >> category [
 	^ category ifNil: [ category := self defaultCategory ]
 ]
 
 { #category : #accessing }
-GTEventCollector >> category: aString [ 
+EREventCollector >> category: aString [ 
 	"It is used for distinguishing data from different application on a server.
 	The data are stored separately on a server according to category name."
 	^ category := aString
 ]
 
 { #category : #configuration }
-GTEventCollector >> defaultCategory [
+EREventCollector >> defaultCategory [
 	"Default category name. You can set your own by calling #category: or 
 	by overwriting this method if you have a spetialized subclass."
 	^ #unknown
 ]
 
 { #category : #accessing }
-GTEventCollector >> flush [
+EREventCollector >> flush [
 	"Be careful when using it. You will lost all data."
 	recordedEvents flush
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventCollector >> gtInspectorActionHelp [
+EREventCollector >> gtInspectorActionHelp [
 	<gtInspectorAction>
 	^ GLMGenericAction new
 		action: [:b | 
 		HelpBrowser open selectTopicSatisfying: [:each |
 			each owner notNil and:  [
-			(each owner key = GTEventRecorderHelp key) and: [
+			(each owner key = EREventRecorderHelp key) and: [
 				each title = 'Client' ] ] ] ];
 		icon: GLMUIThemeExtraIcons glamorousHelp;
 		title: 'Help'
 ]
 
 { #category : #initialization }
-GTEventCollector >> initialize [
+EREventCollector >> initialize [
 	super initialize.	
 	recordedEvents := WaitfreeQueue new.
 ]
 
 { #category : #testing }
-GTEventCollector >> isLiberated [
+EREventCollector >> isLiberated [
 	"When I answer true, I can be removed from a GTEventRecorder object."
 	^ self registry isLiberated and: [ recordedEvents isEmpty ]
 ]
 
 { #category : #actions }
-GTEventCollector >> liberate [
+EREventCollector >> liberate [
 	"Liberate me from the occupant so I can be removed from GTEventRecorder object in the next delivery cycle."
 	^ self registry liberate.
 ]
 
 { #category : #accessing }
-GTEventCollector >> occupant: anObject [ 
+EREventCollector >> occupant: anObject [ 
 	"anObject sends me data. I weakly keeps anObject and once it is released, I can be removed from GTEventRecorder object."
 	self registry object: anObject
 ]
 
 { #category : #printing }
-GTEventCollector >> printOn: aStream [
+EREventCollector >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		space;
@@ -165,43 +165,43 @@ GTEventCollector >> printOn: aStream [
 ]
 
 { #category : #initialization }
-GTEventCollector >> register [
+EREventCollector >> register [
 	"Register to the global GTEventRecorder."
-	GTEventRecorder uniqueInstance addCollector: self.
+	EREventRecorder uniqueInstance addCollector: self.
 ]
 
 { #category : #accessing }
-GTEventCollector >> registry [
+EREventCollector >> registry [
 	"Registry is a weak holder of my owner. Once it is nil, I can be removed from GTEventRecorder object."
-	^ registry ifNil: [ registry := GTEventRegistry new ]
+	^ registry ifNil: [ registry := EREventRegistry new ]
 ]
 
 { #category : #accessing }
-GTEventCollector >> size [
+EREventCollector >> size [
 	"It returns number of collected events."
 	^ recordedEvents size
 ]
 
 { #category : #updating }
-GTEventCollector >> updateAnnouncement: aGTEventAnnouncement [ 
+EREventCollector >> updateAnnouncement: aGTEventAnnouncement [ 
 	updateAnnouncementBlock ifNil: [ ^ aGTEventAnnouncement ].
 	updateAnnouncementBlock cull: aGTEventAnnouncement.
 	^ aGTEventAnnouncement
 ]
 
 { #category : #updating }
-GTEventCollector >> updateAnnouncementBlock: aBlockClosure [ 
+EREventCollector >> updateAnnouncementBlock: aBlockClosure [ 
 	updateAnnouncementBlock := aBlockClosure
 ]
 
 { #category : #accessing }
-GTEventCollector >> url [
+EREventCollector >> url [
 	"It returns URL indicating where to send collected data."
-	^ url ifNil: [ url := GTEventRecorderSettings url ]
+	^ url ifNil: [ url := EREventRecorderSettings url ]
 ]
 
 { #category : #accessing }
-GTEventCollector >> url: aZnUrl [
+EREventCollector >> url: aZnUrl [
 	"URL that indicates where to send collected data."
 	url := aZnUrl
 ]

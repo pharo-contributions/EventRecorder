@@ -16,7 +16,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventRegistry,
+	#name : #EREventRegistry,
 	#superclass : #Object,
 	#instVars : [
 		'weakHolder'
@@ -25,28 +25,28 @@ Class {
 }
 
 { #category : #initialization }
-GTEventRegistry >> initialize [
+EREventRegistry >> initialize [
 	super initialize.
 	weakHolder := WeakArray new: 1.
 ]
 
 { #category : #testing }
-GTEventRegistry >> isLiberated [
+EREventRegistry >> isLiberated [
 	^ (weakHolder at: 1) isNil
 ]
 
 { #category : #actions }
-GTEventRegistry >> liberate [
+EREventRegistry >> liberate [
 	self object: nil.
 ]
 
 { #category : #accessing }
-GTEventRegistry >> object: anObject [ 
+EREventRegistry >> object: anObject [ 
 	weakHolder at: 1 put: anObject.
 ]
 
 { #category : #printing }
-GTEventRegistry >> printOn: aStream [
+EREventRegistry >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPut: $(;

@@ -2,7 +2,7 @@
 I know how to create GTEventMultiBundle object from a collection of GTEventBundle objects.
 "
 Class {
-	#name : #GTEventMultiBundleFactory,
+	#name : #EREventMultiBundleFactory,
 	#superclass : #Object,
 	#instVars : [
 		'multiBundles'
@@ -11,43 +11,43 @@ Class {
 }
 
 { #category : #accessing }
-GTEventMultiBundleFactory class >> default [
+EREventMultiBundleFactory class >> default [
 	^ self new
 ]
 
 { #category : #public }
-GTEventMultiBundleFactory class >> fromBundles: aCollection [ 
+EREventMultiBundleFactory class >> fromBundles: aCollection [ 
 	^ self default fromBundles: aCollection
 ]
 
 { #category : #public }
-GTEventMultiBundleFactory >> fromBundles: aCollection [ 
+EREventMultiBundleFactory >> fromBundles: aCollection [ 
 	multiBundles := OrderedDictionary new.
 	aCollection do: [ :aSingleOrMultiBundle | self synthetize: aSingleOrMultiBundle.].
 	^ self multiBundles
 ]
 
 { #category : #accessing }
-GTEventMultiBundleFactory >> multiBundles [
+EREventMultiBundleFactory >> multiBundles [
 	^ multiBundles asOrderedCollection
 ]
 
 { #category : #private }
-GTEventMultiBundleFactory >> synthetize: aSingleOrMultiBundle [
+EREventMultiBundleFactory >> synthetize: aSingleOrMultiBundle [
 	aSingleOrMultiBundle accept: self
 ]
 
 { #category : #visitor }
-GTEventMultiBundleFactory >> visitMultiBundle: aMultiBundle [
+EREventMultiBundleFactory >> visitMultiBundle: aMultiBundle [
 	aMultiBundle bundles do: [ :eachSingleBundle |
 		self visitSingleBundle: eachSingleBundle ]
 ]
 
 { #category : #visitor }
-GTEventMultiBundleFactory >> visitSingleBundle: aSingleBundle [
+EREventMultiBundleFactory >> visitSingleBundle: aSingleBundle [
 	| multiBundle |
 	multiBundle := multiBundles 
 							at: aSingleBundle url 
-							ifAbsentPut: [ GTEventMultiBundle new url: aSingleBundle url; yourself ].
+							ifAbsentPut: [ EREventMultiBundle new url: aSingleBundle url; yourself ].
 	multiBundle add: aSingleBundle
 ]

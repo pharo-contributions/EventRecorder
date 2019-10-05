@@ -5,8 +5,8 @@ Collaborators: GTEventUnpacking
 
 "
 Class {
-	#name : #GTEventUnpackingError,
-	#superclass : #GTEventRecorderError,
+	#name : #EREventUnpackingError,
+	#superclass : #EREventRecorderError,
 	#instVars : [
 		'data',
 		'errors'
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-GTEventUnpackingError class >> signal: aString data: aByteArray errors: aCollection [ 
+EREventUnpackingError class >> signal: aString data: aByteArray errors: aCollection [ 
 	^ self new
 			data: aByteArray;
 			errors: aCollection;
@@ -24,27 +24,27 @@ GTEventUnpackingError class >> signal: aString data: aByteArray errors: aCollect
 ]
 
 { #category : #accessing }
-GTEventUnpackingError >> data [
+EREventUnpackingError >> data [
 	^ data
 ]
 
 { #category : #accessing }
-GTEventUnpackingError >> data: anObject [
+EREventUnpackingError >> data: anObject [
 	data := anObject
 ]
 
 { #category : #accessing }
-GTEventUnpackingError >> errors [
+EREventUnpackingError >> errors [
 	^ errors
 ]
 
 { #category : #accessing }
-GTEventUnpackingError >> errors: anObject [
+EREventUnpackingError >> errors: anObject [
 	errors := anObject
 ]
 
 { #category : #private }
-GTEventUnpackingError >> isResumable [
+EREventUnpackingError >> isResumable [
 	"Determine whether an exception is resumable."
 	^true
 ]

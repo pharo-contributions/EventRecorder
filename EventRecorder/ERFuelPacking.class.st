@@ -2,8 +2,8 @@
 I serialize or materialize objects using FUEL framework. Create instance of me calling GTEventPacking fuel.
 "
 Class {
-	#name : #GTFuelPacking,
-	#superclass : #GTEventPacking,
+	#name : #ERFuelPacking,
+	#superclass : #EREventPacking,
 	#instVars : [
 		'migrations'
 	],
@@ -11,17 +11,17 @@ Class {
 }
 
 { #category : #adding }
-GTFuelPacking >> addMigration: oneArgBlock [ 
+ERFuelPacking >> addMigration: oneArgBlock [ 
 	^ self migrations addLast: oneArgBlock
 ]
 
 { #category : #initialization }
-GTFuelPacking >> initializeMaterializer: aFLMaterializer [ 
+ERFuelPacking >> initializeMaterializer: aFLMaterializer [ 
 	self migrations do: [ :eachMigration | eachMigration value: aFLMaterializer ]
 ]
 
 { #category : #initialization }
-GTFuelPacking >> initializeMigrations [
+ERFuelPacking >> initializeMigrations [
 	| pragmas |
 	pragmas := Pragma allNamed: #fuelMaterializerMigration in: self class.
 	migrations := pragmas
@@ -30,7 +30,7 @@ GTFuelPacking >> initializeMigrations [
 ]
 
 { #category : #private }
-GTFuelPacking >> materialize: aByteArray [
+ERFuelPacking >> materialize: aByteArray [
 	| materializer stream gzstream materialization |
 	stream := aByteArray asByteArray readStream. 
 	gzstream := GZipReadStream on: stream.
@@ -43,18 +43,18 @@ GTFuelPacking >> materialize: aByteArray [
 ]
 
 { #category : #accessing }
-GTFuelPacking >> migrations [
+ERFuelPacking >> migrations [
 	migrations ifNil: [ self initializeMigrations ].
 	^ migrations
 ]
 
 { #category : #accessing }
-GTFuelPacking >> migrations: aCollectionOrNil [
+ERFuelPacking >> migrations: aCollectionOrNil [
 	migrations := aCollectionOrNil
 ]
 
 { #category : #private }
-GTFuelPacking >> serialize: anObject [
+ERFuelPacking >> serialize: anObject [
 	| serializer stream gzstream |
 	stream := ByteArray new writeStream binary. 
 	gzstream := GZipWriteStream on: stream.
@@ -68,6 +68,6 @@ GTFuelPacking >> serialize: anObject [
 ]
 
 { #category : #accessing }
-GTFuelPacking >> technologyName [
+ERFuelPacking >> technologyName [
 	^ 'fuel'
 ]

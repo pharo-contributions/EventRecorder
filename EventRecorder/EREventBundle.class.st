@@ -6,7 +6,7 @@ Instances of me should be sent to a GTEventDelivery.
 
 "
 Class {
-	#name : #GTEventBundle,
+	#name : #EREventBundle,
 	#superclass : #Object,
 	#instVars : [
 		'url',
@@ -17,41 +17,41 @@ Class {
 }
 
 { #category : #visitor }
-GTEventBundle >> accept: aVisitor [ 
+EREventBundle >> accept: aVisitor [ 
 	^ aVisitor visitSingleBundle: self
 ]
 
 { #category : #accessing }
-GTEventBundle >> category [
+EREventBundle >> category [
 	^ category
 ]
 
 { #category : #accessing }
-GTEventBundle >> category: anObject [
+EREventBundle >> category: anObject [
 	category := anObject
 ]
 
 { #category : #accessing }
-GTEventBundle >> data [
+EREventBundle >> data [
 	^ data
 ]
 
 { #category : #accessing }
-GTEventBundle >> data: anObject [
+EREventBundle >> data: anObject [
 	data := anObject
 ]
 
 { #category : #'accessing - computed' }
-GTEventBundle >> entity [
+EREventBundle >> entity [
 	^ ZnByteArrayEntity bytes: self data
 ]
 
 { #category : #accessing }
-GTEventBundle >> url [
+EREventBundle >> url [
 	^ url
 ]
 
 { #category : #accessing }
-GTEventBundle >> url: anObject [
+EREventBundle >> url: anObject [
 	url := anObject
 ]

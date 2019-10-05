@@ -16,7 +16,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventMultiBundle,
+	#name : #EREventMultiBundle,
 	#superclass : #Object,
 	#instVars : [
 		'url',
@@ -26,22 +26,22 @@ Class {
 }
 
 { #category : #visitor }
-GTEventMultiBundle >> accept: aVisitor [ 
+EREventMultiBundle >> accept: aVisitor [ 
 	^ aVisitor visitMultiBundle: self
 ]
 
 { #category : #adding }
-GTEventMultiBundle >> add: aGTEventBundle [ 
+EREventMultiBundle >> add: aGTEventBundle [ 
 	^ self bundles addLast: aGTEventBundle
 ]
 
 { #category : #accessing }
-GTEventMultiBundle >> bundles [
+EREventMultiBundle >> bundles [
 	^ bundles ifNil: [ bundles := OrderedCollection new ]
 ]
 
 { #category : #accessing }
-GTEventMultiBundle >> entity [
+EREventMultiBundle >> entity [
 	| entity |
 	entity := ZnMultiPartFormDataEntity new.
 	self updateEntity: entity.
@@ -49,7 +49,7 @@ GTEventMultiBundle >> entity [
 ]
 
 { #category : #private }
-GTEventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [ 
+EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [ 
 	bundles ifNil: [ ^ self ].
 	self bundles do: [ :eachEventBundle |
 		aZnMultiPartFormDataEntity 
@@ -58,11 +58,11 @@ GTEventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [
 ]
 
 { #category : #accessing }
-GTEventMultiBundle >> url [
+EREventMultiBundle >> url [
 	^ url
 ]
 
 { #category : #accessing }
-GTEventMultiBundle >> url: anObject [
+EREventMultiBundle >> url: anObject [
 	url := anObject
 ]

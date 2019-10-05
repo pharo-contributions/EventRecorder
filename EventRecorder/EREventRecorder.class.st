@@ -23,7 +23,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventRecorder,
+	#name : #EREventRecorder,
 	#superclass : #Object,
 	#instVars : [
 		'collectors',
@@ -39,12 +39,12 @@ Class {
 }
 
 { #category : #cleanup }
-GTEventRecorder class >> cleanUp [
+EREventRecorder class >> cleanUp [
 	self reset.
 ]
 
 { #category : #initialization }
-GTEventRecorder class >> initializeUniqueInstance [
+EREventRecorder class >> initializeUniqueInstance [
 	uniqueInstance ifNotNil: [ ^ uniqueInstance ].
 	uniqueInstance := self new.
 	self registerInterestToSystemAnnouncement.
@@ -52,27 +52,27 @@ GTEventRecorder class >> initializeUniqueInstance [
 ]
 
 { #category : #testing }
-GTEventRecorder class >> isGlobalRecorder: aGTEventRecorder [
+EREventRecorder class >> isGlobalRecorder: aGTEventRecorder [
 	^ uniqueInstance 
 			ifNil: false
 			ifNotNil: [ :anInstance | anInstance == aGTEventRecorder  ]
 ]
 
 { #category : #initialization }
-GTEventRecorder class >> registerInterestToSystemAnnouncement [
+EREventRecorder class >> registerInterestToSystemAnnouncement [
 	<systemEventRegistration>
 	
 	uniqueInstance ifNil: [ ^ self ].
 	SystemAnnouncer uniqueInstance
 		unsubscribe: uniqueInstance.
 	SystemAnnouncer uniqueInstance weak 
-			when: PrivacyChangedAnnouncement
+			when: ERPrivacyChangedAnnouncement
 			send: #privacyChanged 
 			to: uniqueInstance
 ]
 
 { #category : #initialization }
-GTEventRecorder class >> reset [
+EREventRecorder class >> reset [
 	"Stop and remove the process for sending usage data. Delete all recorder that from the queue."
 	uniqueInstance ifNil: [ ^ self ].
 	SystemAnnouncer uniqueInstance unsubscribe: uniqueInstance.
@@ -82,137 +82,137 @@ GTEventRecorder class >> reset [
 ]
 
 { #category : #accessing }
-GTEventRecorder class >> uniqueInstance [
+EREventRecorder class >> uniqueInstance [
 	uniqueInstance ifNil: [ self initializeUniqueInstance ].
 	^ uniqueInstance
 ]
 
 { #category : #delivery }
-GTEventRecorder >> activateDelivery [
+EREventRecorder >> activateDelivery [
 	^ delivery activate
 ]
 
 { #category : #delivery }
-GTEventRecorder >> activateDeliveryIfAvailable [
+EREventRecorder >> activateDeliveryIfAvailable [
 	^ self canSendDiagnosticsAndUsageData 
 		ifTrue: [ self activateDelivery ]
 		ifFalse: [ nil ]
 ]
 
 { #category : #adding }
-GTEventRecorder >> addCollector: aGTEventCollector [
+EREventRecorder >> addCollector: aGTEventCollector [
 	self activateDeliveryIfAvailable.
 	^ collectors add: aGTEventCollector
 ]
 
 { #category : #accessing }
-GTEventRecorder >> announcer [
+EREventRecorder >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
 { #category : #testing }
-GTEventRecorder >> canSendDiagnosticsAndUsageData [
+EREventRecorder >> canSendDiagnosticsAndUsageData [
 	^ privacy value
 ]
 
 { #category : #delivery }
-GTEventRecorder >> deactivateDelivery [
+EREventRecorder >> deactivateDelivery [
 	^ delivery deactivate
 ]
 
 { #category : #delivery }
-GTEventRecorder >> deliverNow [
+EREventRecorder >> deliverNow [
 	delivery now
 ]
 
 { #category : #accessing }
-GTEventRecorder >> delivery [
+EREventRecorder >> delivery [
 	"Testing purpose."
 	^ delivery
 ]
 
 { #category : #configuration }
-GTEventRecorder >> deliveryPreSuspendingAction: aBlockClosure [ 
+EREventRecorder >> deliveryPreSuspendingAction: aBlockClosure [ 
 	self delivery preSuspendingAction: aBlockClosure
 ]
 
 { #category : #packing }
-GTEventRecorder >> flush [
+EREventRecorder >> flush [
 	"Be careful! You will lost all data."
 	collectors do: #flush
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventRecorder >> gtInspectorActionHelp [
+EREventRecorder >> gtInspectorActionHelp [
 	<gtInspectorAction>
 	^ GLMGenericAction new
 		action: [:b | 
 		HelpBrowser open selectTopicSatisfying: [:each |
 			each owner notNil and:  [
-			(each owner key = GTEventRecorderHelp key) and: [
+			(each owner key = EREventRecorderHelp key) and: [
 				each title = 'Client' ] ] ] ];
 		icon: GLMUIThemeExtraIcons glamorousHelp;
 		title: 'Help'
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventRecorder >> gtInspectorItemsIn: composite [
+EREventRecorder >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ collectors ifNotNil: [ 
 			(collectors gtInspectorItemsIn: composite) ]
 ]
 
 { #category : #initialization }
-GTEventRecorder >> initialize [
+EREventRecorder >> initialize [
 	super initialize.
-	privacy := [ Privacy sendDiagnosticsAndUsageData ].
-	collectors := GTEventCollectors new.
-	delivery := GTEventDelivery new.
+	privacy := [ ERPrivacy sendDiagnosticsAndUsageData ].
+	collectors := EREventCollectors new.
+	delivery := EREventDelivery new.
 	delivery recorder: self.
-	packing := GTEventPacking default.
+	packing := EREventPacking default.
 	self canSendDiagnosticsAndUsageData 
 			ifTrue: [ delivery offerPermission ]
 			ifFalse: [ delivery withdrawPermission ]
 ]
 
 { #category : #testing }
-GTEventRecorder >> isDeliveryActive [
+EREventRecorder >> isDeliveryActive [
 	^ delivery isActive
 ]
 
 { #category : #testing }
-GTEventRecorder >> isGlobalRecorder [
+EREventRecorder >> isGlobalRecorder [
 	^ self class isGlobalRecorder: self
 ]
 
 { #category : #convenient }
-GTEventRecorder >> numberOfCollectors [
+EREventRecorder >> numberOfCollectors [
 	^ collectors size
 ]
 
 { #category : #convenient }
-GTEventRecorder >> numberOfDeliveryData [
+EREventRecorder >> numberOfDeliveryData [
 	^ delivery size
 ]
 
 { #category : #configuration }
-GTEventRecorder >> offerDeliveryPermission [
+EREventRecorder >> offerDeliveryPermission [
 	delivery offerPermission
 ]
 
 { #category : #configuration }
-GTEventRecorder >> offerPrivacy [
+EREventRecorder >> offerPrivacy [
 	"testing purpose"
 	privacy := true
 ]
 
 { #category : #packing }
-GTEventRecorder >> pack [
+EREventRecorder >> pack [
 	| allCollectors consolidatedCollectors |
 	self canSendDiagnosticsAndUsageData ifFalse: [ ^ self flush; yourself ].
 	allCollectors := OrderedCollection new: collectors size.
 	collectors do: [ :eachCollector | allCollectors addLast: eachCollector ].
-	consolidatedCollectors := GTEventConsolidate new collectors: allCollectors; consolidated.
+	consolidatedCollectors := EREventConsolidate new collectors: allCollectors; consolidated.
 	consolidatedCollectors do: [ :eachCollector | | bundle |
 		eachCollector size > 0 ifTrue: [ 
 			bundle := packing pack: eachCollector.
@@ -221,7 +221,7 @@ GTEventRecorder >> pack [
 ]
 
 { #category : #'event handling' }
-GTEventRecorder >> privacyChanged [
+EREventRecorder >> privacyChanged [
 	self canSendDiagnosticsAndUsageData 
 		ifTrue: [ self numberOfCollectors > 0 
 						ifTrue: [ self activateDelivery ] ]
@@ -229,7 +229,7 @@ GTEventRecorder >> privacyChanged [
 ]
 
 { #category : #removing }
-GTEventRecorder >> removeCollector: aGTEventCollector [ 
+EREventRecorder >> removeCollector: aGTEventCollector [ 
 	| removedCollector |
 	removedCollector := collectors remove: aGTEventCollector.
 	collectors size = 0 ifTrue: [ self deactivateDelivery ].
@@ -237,17 +237,17 @@ GTEventRecorder >> removeCollector: aGTEventCollector [
 ]
 
 { #category : #removing }
-GTEventRecorder >> removeLiberatedCollectors [
+EREventRecorder >> removeLiberatedCollectors [
 	collectors removeLiberatedCollectors
 ]
 
 { #category : #configuration }
-GTEventRecorder >> withdrawDeliveryPermission [
+EREventRecorder >> withdrawDeliveryPermission [
 	delivery withdrawPermission
 ]
 
 { #category : #configuration }
-GTEventRecorder >> withdrawPrivacy [
+EREventRecorder >> withdrawPrivacy [
 	"testing purpose"
 	privacy := false
 ]

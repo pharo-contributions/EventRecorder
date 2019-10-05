@@ -13,48 +13,48 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #GTEventPacking,
+	#name : #EREventPacking,
 	#superclass : #Object,
 	#category : #'EventRecorder-Support'
 }
 
 { #category : #accessing }
-GTEventPacking class >> all [
+EREventPacking class >> all [
 	^ {self ston. self fuel}
 ]
 
 { #category : #'instance creation' }
-GTEventPacking class >> default [
+EREventPacking class >> default [
 	^ self ston
 ]
 
 { #category : #'instance creation' }
-GTEventPacking class >> fuel [
-	^ GTFuelPacking new
+EREventPacking class >> fuel [
+	^ ERFuelPacking new
 ]
 
 { #category : #'instance creation' }
-GTEventPacking class >> ston [
-	^ GTStonPacking new
+EREventPacking class >> ston [
+	^ ERStonPacking new
 ]
 
 { #category : #private }
-GTEventPacking >> materialize: aByteArray [
+EREventPacking >> materialize: aByteArray [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-GTEventPacking >> migrations: anObject [ 
+EREventPacking >> migrations: anObject [ 
 	"Ignore by default. Subclasses can overwrite it."
 ]
 
 { #category : #'instance creation' }
-GTEventPacking >> newAnnouncement [
-	^ GTEventAnnouncement new
+EREventPacking >> newAnnouncement [
+	^ EREventAnnouncement new
 ]
 
 { #category : #private }
-GTEventPacking >> newAnnouncementFor: aGTEventCollector [
+EREventPacking >> newAnnouncementFor: aGTEventCollector [
 	| announcement |
 	announcement := self 
 		updateAnnouncement: self newAnnouncement 
@@ -64,8 +64,8 @@ GTEventPacking >> newAnnouncementFor: aGTEventCollector [
 ]
 
 { #category : #packing }
-GTEventPacking >> pack: aGTEventCollector [
-	^ GTEventBundle new
+EREventPacking >> pack: aGTEventCollector [
+	^ EREventBundle new
 			url: aGTEventCollector url;
 			category: aGTEventCollector category;
 			data: (self packCollector: aGTEventCollector);
@@ -73,28 +73,28 @@ GTEventPacking >> pack: aGTEventCollector [
 ]
 
 { #category : #private }
-GTEventPacking >> packCollector: aGTEventCollector [
+EREventPacking >> packCollector: aGTEventCollector [
 	^ self serialize: (self newAnnouncementFor: aGTEventCollector)
 ]
 
 { #category : #private }
-GTEventPacking >> serialize: anObject [
+EREventPacking >> serialize: anObject [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-GTEventPacking >> technologyName [
+EREventPacking >> technologyName [
 	"It returns a string that identify packing technology."
 	^ self subclassResponsibility
 ]
 
 { #category : #packing }
-GTEventPacking >> unpack: aByteArray [
+EREventPacking >> unpack: aByteArray [
 	^ self materialize: aByteArray
 ]
 
 { #category : #private }
-GTEventPacking >> updateAnnouncement: aGTEventAnnouncement for: aGTEventCollector [
+EREventPacking >> updateAnnouncement: aGTEventAnnouncement for: aGTEventCollector [
 	^ aGTEventAnnouncement
 			data: (self serialize: aGTEventCollector bundle);
 			category: aGTEventCollector category;
@@ -104,14 +104,14 @@ GTEventPacking >> updateAnnouncement: aGTEventAnnouncement for: aGTEventCollecto
 			imageHash: SmalltalkImage current imagePath hash;
 			imageVersion: SystemVersion current version;
 			latestUpdate: SystemVersion current commitHash;
-			computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
+			computerUUID: ERGlobalIdentifier uniqueInstance computerUUID asString;
 			sessionUUID: SmalltalkImage current session id asString;
 			sessionCreationTime: SmalltalkImage current session creationTime;
 			yourself
 ]
 
 { #category : #accessing }
-GTEventPacking >> version [
+EREventPacking >> version [
 	^ 4
 	
 "

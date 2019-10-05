@@ -20,7 +20,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventAnnouncement,
+	#name : #EREventAnnouncement,
 	#superclass : #Announcement,
 	#instVars : [
 		'dictionary'
@@ -29,7 +29,7 @@ Class {
 }
 
 { #category : #examples }
-GTEventAnnouncement class >> gtExampleAnnouncement [
+EREventAnnouncement class >> gtExampleAnnouncement [
 	<gtExample>
 	^ self new
 			data: #[ 1 2 3 4 ];
@@ -42,13 +42,13 @@ GTEventAnnouncement class >> gtExampleAnnouncement [
 ]
 
 { #category : #examples }
-GTEventAnnouncement class >> gtExampleEmptyAnnouncement [
+EREventAnnouncement class >> gtExampleEmptyAnnouncement [
 	<gtExample>
 	^ self new
 ]
 
 { #category : #updating }
-GTEventAnnouncement >> addInfoFor: aGTSpotterRecorderEvent [ 
+EREventAnnouncement >> addInfoFor: aGTSpotterRecorderEvent [ 
 	(aGTSpotterRecorderEvent respondsTo: #infoAt:put:) ifTrue: [
 		dictionary keysAndValuesDo: [ :key :value |
 			key = #data ifFalse: [ 
@@ -56,69 +56,69 @@ GTEventAnnouncement >> addInfoFor: aGTSpotterRecorderEvent [
 ]
 
 { #category : #converting }
-GTEventAnnouncement >> associations [
+EREventAnnouncement >> associations [
 	^ dictionary 
 			ifNil: [ #() ]
 			ifNotNil: [ dictionary associations ]
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> at: key [
+EREventAnnouncement >> at: key [
 	^ self dictionary at: key ifAbsent: [ nil ]
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> at: key put: value [
+EREventAnnouncement >> at: key put: value [
 	^ self dictionary at: key put: value
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> category [
+EREventAnnouncement >> category [
 	^ self at: #category
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> category: aSymbol [
+EREventAnnouncement >> category: aSymbol [
 	^ self at: #category put: aSymbol
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> computerUUID [
+EREventAnnouncement >> computerUUID [
 	^ self at: #computerUUID
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> computerUUID: anObject [
+EREventAnnouncement >> computerUUID: anObject [
 	self at: #computerUUID put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> data [
+EREventAnnouncement >> data [
 	^ self at: #data
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> data: aByteArray [ 
+EREventAnnouncement >> data: aByteArray [ 
 	self at: #data put: aByteArray
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> dictionary [
+EREventAnnouncement >> dictionary [
 	^ dictionary ifNil: [ dictionary := Dictionary new ]
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> eventRecorderVersion [
+EREventAnnouncement >> eventRecorderVersion [
 	^ self at: #eventRecorderVersion
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> eventRecorderVersion: anObject [
+EREventAnnouncement >> eventRecorderVersion: anObject [
 	self at: #eventRecorderVersion put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> events [
+EREventAnnouncement >> events [
 	| events |
 	events := self unpackedData.
 	events do: [ :each | self addInfoFor: each ].
@@ -126,7 +126,7 @@ GTEventAnnouncement >> events [
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventAnnouncement >> gtInspectorActionUnpackData [
+EREventAnnouncement >> gtInspectorActionUnpackData [
 	<gtInspectorAction>
 	^ GLMGenericAction new
 		action: [ :composite |
@@ -137,12 +137,12 @@ GTEventAnnouncement >> gtInspectorActionUnpackData [
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventAnnouncement >> gtInspectorItems [
+EREventAnnouncement >> gtInspectorItems [
 	^ OrderedCollection withAll: self associations
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventAnnouncement >> gtInspectorItemsIn: composite [
+EREventAnnouncement >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: -1>  
 	^ (composite table)
 		title: 'Info';
@@ -161,93 +161,93 @@ GTEventAnnouncement >> gtInspectorItemsIn: composite [
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> imageHash [
+EREventAnnouncement >> imageHash [
 	^ self at: #imageHash
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> imageHash: anObject [
+EREventAnnouncement >> imageHash: anObject [
 	self at: #imageHash put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> imageVersion [
+EREventAnnouncement >> imageVersion [
 	^ self at: #imageVersion
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> imageVersion: anObject [
+EREventAnnouncement >> imageVersion: anObject [
 	self at: #imageVersion put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> latestUpdate [
+EREventAnnouncement >> latestUpdate [
 	^ self at: #latestUpdate
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> latestUpdate: anObject [
+EREventAnnouncement >> latestUpdate: anObject [
 	self at: #latestUpdate put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> migrationRules [
+EREventAnnouncement >> migrationRules [
 	^ self dictionary at: #migrationRules ifAbsent: [ nil ]
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> migrationRules: aCollectionOrNil [
+EREventAnnouncement >> migrationRules: aCollectionOrNil [
 	^ self dictionary at: #migrationRules put: aCollectionOrNil
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> safeUnpackedData [
+EREventAnnouncement >> safeUnpackedData [
 	"On any error, returns empty collection"
 	^ [ self unpackedData ] on: Error do: [ #() ]
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> serializedBy [
-	^ self dictionary at: #serializedBy ifAbsent: [ GTFuelPacking name ]
+EREventAnnouncement >> serializedBy [
+	^ self dictionary at: #serializedBy ifAbsent: [ ERFuelPacking name ]
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> serializedBy: anObject [
+EREventAnnouncement >> serializedBy: anObject [
 	self at: #serializedBy put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> sessionCreationTime [
+EREventAnnouncement >> sessionCreationTime [
 	^ self at: #sessionCreationTime
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> sessionCreationTime: anObject [
+EREventAnnouncement >> sessionCreationTime: anObject [
 	self at: #sessionCreationTime put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> sessionUUID [
+EREventAnnouncement >> sessionUUID [
 	^ self at: #sessionUUID
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> sessionUUID: anObject [
+EREventAnnouncement >> sessionUUID: anObject [
 	self at: #sessionUUID put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> timestamp [
+EREventAnnouncement >> timestamp [
 	^ self at: #timestamp
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> timestamp: anObject [
+EREventAnnouncement >> timestamp: anObject [
 	self at: #timestamp put: anObject
 ]
 
 { #category : #accessing }
-GTEventAnnouncement >> unpackedData [
+EREventAnnouncement >> unpackedData [
 	^ self data ifNotNil: [ :aData | 
 		(self class environment at: self serializedBy) new
 			migrations: self migrationRules;

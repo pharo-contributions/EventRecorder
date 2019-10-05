@@ -14,7 +14,7 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #GTEventCollectors,
+	#name : #EREventCollectors,
 	#superclass : #Object,
 	#instVars : [
 		'mutex',
@@ -24,7 +24,7 @@ Class {
 }
 
 { #category : #adding }
-GTEventCollectors >> add: aGTEventCollector [
+EREventCollectors >> add: aGTEventCollector [
 	^ mutex critical: [ 
 		(collectors identityIncludes: aGTEventCollector)
 			ifFalse: [ collectors add: aGTEventCollector ]
@@ -32,12 +32,12 @@ GTEventCollectors >> add: aGTEventCollector [
 ]
 
 { #category : #enumerating }
-GTEventCollectors >> do: oneArgBlock [
+EREventCollectors >> do: oneArgBlock [
 	mutex critical: [ collectors do: oneArgBlock ]
 ]
 
 { #category : #'gt-inspector-extension' }
-GTEventCollectors >> gtInspectorItemsIn: composite [
+EREventCollectors >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ collectors ifNotNil: [ 
 			(collectors gtInspectorItemsIn: composite)
@@ -45,14 +45,14 @@ GTEventCollectors >> gtInspectorItemsIn: composite [
 ]
 
 { #category : #initialization }
-GTEventCollectors >> initialize [
+EREventCollectors >> initialize [
 	super initialize.
 	mutex := Mutex new.
 	collectors := OrderedCollection new.
 ]
 
 { #category : #accessing }
-GTEventCollectors >> numberOfEvents [
+EREventCollectors >> numberOfEvents [
 	^ mutex critical: [ 
 		collectors 
 			ifEmpty: 0
@@ -60,7 +60,7 @@ GTEventCollectors >> numberOfEvents [
 ]
 
 { #category : #printing }
-GTEventCollectors >> printOn: aStream [
+EREventCollectors >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		space;
@@ -76,18 +76,18 @@ GTEventCollectors >> printOn: aStream [
 ]
 
 { #category : #removing }
-GTEventCollectors >> remove: aGTEventCollector [ 
+EREventCollectors >> remove: aGTEventCollector [ 
 	^ mutex critical: [ collectors remove: aGTEventCollector ifAbsent: nil ]
 ]
 
 { #category : #removing }
-GTEventCollectors >> removeLiberatedCollectors [
+EREventCollectors >> removeLiberatedCollectors [
 	mutex critical: [ | liberated |
 		liberated := collectors select: #isLiberated.
 		collectors removeAll: liberated ]
 ]
 
 { #category : #accessing }
-GTEventCollectors >> size [
+EREventCollectors >> size [
 	^ mutex critical: [ collectors size ]
 ]
