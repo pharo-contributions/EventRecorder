@@ -26,7 +26,7 @@ ERBasicRecorderEvent >> announcementTimestamp [
 
 { #category : #'accessing - announcement info' }
 ERBasicRecorderEvent >> computerUUID [
-	^ self infoAt: #computerUUID ifAbsent: [ ERGlobalIdentifier uniqueInstance computerUUID asString ]
+	^ self infoAt: #computerUUID ifAbsent: [ GlobalIdentifier uniqueInstance computerUUID asString ]
 ]
 
 { #category : #'accessing - announcement info' }
@@ -128,7 +128,7 @@ ERBasicRecorderEvent >> sessionCreationTime [
 
 { #category : #accessing }
 ERBasicRecorderEvent >> settings [
-	^ ERGlobalIdentifier uniqueInstance
+	^ GlobalIdentifier uniqueInstance
 ]
 
 { #category : #accessing }

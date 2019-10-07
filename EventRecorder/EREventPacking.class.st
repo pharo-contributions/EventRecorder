@@ -94,7 +94,7 @@ EREventPacking >> updateAnnouncement: aGTEventAnnouncement for: aGTEventCollecto
 			imageHash: SmalltalkImage current imagePath hash;
 			imageVersion: SystemVersion current version;
 			latestUpdate: SystemVersion current commitHash;
-			computerUUID: ERGlobalIdentifier uniqueInstance computerUUID asString;
+			computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
 			sessionUUID: SmalltalkImage current session id asString;
 			sessionCreationTime: SmalltalkImage current session creationTime;
 			yourself
