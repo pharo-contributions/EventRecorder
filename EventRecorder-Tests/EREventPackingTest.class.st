@@ -86,8 +86,7 @@ EREventPackingTest >> testPack [
 { #category : #'tests-packing' }
 EREventPackingTest >> testUnpackBinaryBinaryStream [
 	self assertBundle.
-	file writeStreamDo: [ :aStream | 
-		aStream binary.
+	file binaryWriteStreamDo: [ :aStream | 
 		aStream nextPutAll: bundle data ].
 	file binaryReadStreamDo: [ :aStream | 
 		announcement := packing unpack: aStream contents ].
@@ -99,7 +98,6 @@ EREventPackingTest >> testUnpackBinaryBinaryStream [
 EREventPackingTest >> testUnpackBinaryUnspecifiedStream [
 	self assertBundle.
 	file writeStreamDo: [ :aStream | 
-		aStream binary.
 		aStream nextPutAll: bundle data ].
 	announcement := packing unpack: file contents.
 	self assertUnpackedData.
