@@ -13,26 +13,26 @@ Class {
 { #category : #running }
 EREventCollectorsTest >> setUp [
 	super setUp.
-	collectors := GTEventCollectors new.
+	collectors := EREventCollectors new.
 ]
 
 { #category : #tests }
 EREventCollectorsTest >> testAdd [
-	collectors add: GTEventCollector new.
+	collectors add: EREventCollector new.
 	self assert: collectors size equals: 1.
 ]
 
 { #category : #tests }
 EREventCollectorsTest >> testAdd2 [
-	collectors add: GTEventCollector new.
-	collectors add: GTEventCollector new.
+	collectors add: EREventCollector new.
+	collectors add: EREventCollector new.
 	self assert: collectors size equals: 2.
 ]
 
 { #category : #tests }
 EREventCollectorsTest >> testAdd3 [
 	| collector |
-	collector := GTEventCollector new.
+	collector := EREventCollector new.
 	collectors add: collector.
 	collectors add: collector.
 	self assert: collectors size equals: 1.
@@ -47,8 +47,8 @@ EREventCollectorsTest >> testDefault [
 EREventCollectorsTest >> testDo [
 	"Ensure that collectors are iterated in the same order as they are added."
 	| collector1 collector2 interatedCollectors |
-	collector1 := GTEventCollector new.
-	collector2 := GTEventCollector new.
+	collector1 := EREventCollector new.
+	collector2 := EREventCollector new.
 	collectors add: collector2.
 	collectors add: collector1.
 	interatedCollectors := OrderedCollection new.
@@ -63,8 +63,8 @@ EREventCollectorsTest >> testDo [
 EREventCollectorsTest >> testDo2 [
 	"Ensure that collectors are iterated in the same order as they are added."
 	| collector1 collector2 interatedCollectors |
-	collector1 := GTEventCollector new.
-	collector2 := GTEventCollector new.
+	collector1 := EREventCollector new.
+	collector2 := EREventCollector new.
 	collectors add: collector1.
 	collectors add: collector2.
 	interatedCollectors := OrderedCollection new.

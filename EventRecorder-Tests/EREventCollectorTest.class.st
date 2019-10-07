@@ -13,7 +13,7 @@ Class {
 { #category : #running }
 EREventCollectorTest >> setUp [
 	super setUp.
-	collector := GTEventCollector new
+	collector := EREventCollector new
 ]
 
 { #category : #tests }
@@ -78,7 +78,7 @@ EREventCollectorTest >> testUpdateAnnouncement [
 	| announcement announcement2 |
 	collector updateAnnouncementBlock: [ :anAnnouncement | 
 		anAnnouncement at: #testUpdateAnnouncement put: 42 ].
-	announcement := GTEventAnnouncement new.
+	announcement := EREventAnnouncement new.
 	self assert: (announcement at: #testUpdateAnnouncement) isNil.
 	announcement2 := collector updateAnnouncement: announcement.
 	self assert: announcement == announcement2.
@@ -88,5 +88,5 @@ EREventCollectorTest >> testUpdateAnnouncement [
 { #category : #tests }
 EREventCollectorTest >> testUrl [
 	self assert: collector url notNil.
-	self assert: collector url equals: GTEventRecorderSettings url.
+	self assert: collector url equals: EREventRecorderSettings url.
 ]
