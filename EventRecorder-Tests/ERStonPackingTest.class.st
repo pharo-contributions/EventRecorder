@@ -6,5 +6,5 @@ Class {
 
 { #category : #accessing }
 ERStonPackingTest >> packingClass [
-	^ GTStonPacking
+	^ ERStonPacking
 ]

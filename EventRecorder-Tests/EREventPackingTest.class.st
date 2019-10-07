@@ -49,7 +49,7 @@ EREventPackingTest >> setUp [
 	super setUp.
 	event1 := ERDummyEvent new data: 'string'.
 	event2 := ERDummyEvent new data: 42.
-	collector := GTEventCollector new.
+	collector := EREventCollector new.
 	collector add: event1; add: event2.
 	collector category: #category1.
 	packing := self packingClass new.

@@ -6,7 +6,7 @@ Class {
 
 { #category : #accessing }
 ERFuelPackingTest >> packingClass [
-	^ GTFuelPacking
+	^ ERFuelPacking
 ]
 
 { #category : #tests }
@@ -14,7 +14,7 @@ ERFuelPackingTest >> testMigration [
 	| oldClass oldObject |
 	oldClass := Object newAnonymousSubclass.
 	oldObject := oldClass new.
-	collector := GTEventCollector new.
+	collector := EREventCollector new.
 	collector add: oldObject.
 	bundle := packing pack: collector.
 	announcement := packing unpack: bundle data.
@@ -26,7 +26,7 @@ ERFuelPackingTest >> testMigration2 [
 	| oldClass oldObject |
 	oldClass := Object newAnonymousSubclass.
 	oldObject := oldClass new.
-	collector := GTEventCollector new.
+	collector := EREventCollector new.
 	collector add: oldObject.
 	bundle := packing pack: collector.
 	packing addMigration: [ :aMaterializer |

@@ -13,7 +13,7 @@ Class {
 { #category : #running }
 EREventRegistryTest >> setUp [
 	super setUp.
-	registry := GTEventRegistry new.
+	registry := EREventRegistry new.
 ]
 
 { #category : #'as yet unclassified' }

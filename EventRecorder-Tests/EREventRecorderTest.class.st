@@ -45,11 +45,11 @@ EREventRecorderTest >> setUp [
 	super setUp.
 	self setUpServer.
 	semaphore := Semaphore new.
-	recorder := GTEventRecorder new.
+	recorder := EREventRecorder new.
 	recorder offerPrivacy; offerDeliveryPermission.
-	collector1 := GTEventCollector new.
+	collector1 := EREventCollector new.
 	collector1 url: server url.
-	collector2 := GTEventCollector new.
+	collector2 := EREventCollector new.
 	collector2 url: server url.
 	event1 := ERDummyEvent new data: 'string1'.
 	event2 := ERDummyEvent new data: 42.
@@ -80,13 +80,13 @@ EREventRecorderTest >> tearDown [
 
 { #category : #tests }
 EREventRecorderTest >> testAddCollector [
-	recorder addCollector: GTEventCollector new.
+	recorder addCollector: EREventCollector new.
 	self assert: recorder numberOfCollectors equals: 1.
 ]
 
 { #category : #tests }
 EREventRecorderTest >> testAddCollector2 [
-	recorder addCollector: GTEventCollector new.
+	recorder addCollector: EREventCollector new.
 	self assert: recorder isDeliveryActive.
 ]
 
@@ -116,8 +116,8 @@ EREventRecorderTest >> testAddCollector4 [
 
 { #category : #tests }
 EREventRecorderTest >> testAddCollector5 [
-	recorder addCollector: GTEventCollector new.
-	recorder addCollector: GTEventCollector new.
+	recorder addCollector: EREventCollector new.
+	recorder addCollector: EREventCollector new.
 	self assert: recorder numberOfCollectors equals: 2.
 ]
 
@@ -306,7 +306,7 @@ EREventRecorderTest >> testPrivacyChanged4 [
 
 { #category : #tests }
 EREventRecorderTest >> testRemoveCollector [
-	recorder removeCollector: GTEventCollector new.
+	recorder removeCollector: EREventCollector new.
 	self assert: recorder numberOfCollectors equals: 0.
 ]
 
