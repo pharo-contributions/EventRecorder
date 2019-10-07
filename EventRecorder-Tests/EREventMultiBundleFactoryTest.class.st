@@ -32,15 +32,15 @@ EREventMultiBundleFactoryTest >> detectEvents [
 { #category : #running }
 EREventMultiBundleFactoryTest >> setUp [
 	super setUp.
-	bundle1 := GTEventBundle new 
+	bundle1 := EREventBundle new 
 		url: 'http://localhost/gt/events1' asZnUrl; category: #c1; data: #[1 2 3]; yourself.
-	bundle2 := GTEventBundle new 
+	bundle2 := EREventBundle new 
 		url: 'http://localhost/gt/events1' asZnUrl; category: #c1; data: #[4 5 6]; yourself.
-	bundle3 := GTEventBundle new 
+	bundle3 := EREventBundle new 
 		url: 'http://localhost/gt/events1' asZnUrl; category: #c2; data: #[7 8 9]; yourself.
-	bundle4 := GTEventBundle new 
+	bundle4 := EREventBundle new 
 		url: 'http://localhost/gt/events2' asZnUrl; category: #c1; data: #[10 11 12]; yourself.
-	factory := GTEventMultiBundleFactory new.
+	factory := EREventMultiBundleFactory new.
 ]
 
 { #category : #tests }

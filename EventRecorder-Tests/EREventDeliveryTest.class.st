@@ -26,7 +26,7 @@ EREventDeliveryTest >> isGlobalRecorder [
 EREventDeliveryTest >> setUp [
 	super setUp.
 	semaphore := Semaphore new.
-	delivery := GTEventDelivery new
+	delivery := EREventDelivery new
 ]
 
 { #category : #running }

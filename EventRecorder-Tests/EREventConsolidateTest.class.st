@@ -20,10 +20,10 @@ Class {
 EREventConsolidateTest >> setUp [
 	super setUp.
 	data := { 42. 'string'. Float pi }.
-	consolidate := GTEventConsolidate new.
-	collector1 := GTEventCollector new.
-	collector2 := GTEventCollector new.
-	collector3 := GTEventCollector new.
+	consolidate := EREventConsolidate new.
+	collector1 := EREventCollector new.
+	collector2 := EREventCollector new.
+	collector3 := EREventCollector new.
 	collectors := Array with: collector1 with: collector2 with: collector3.
 	
 ]
