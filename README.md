@@ -13,8 +13,8 @@ Here is what I did
 - added a little spec2 UI to avoid dependency with the old brick widget
 - rescued tests (removed duplicated tests some were already included into System-Identification-Tests)
 - split packages to have better structure
--- EventRecorder
--- EventRecorder-Inspector
--- EventRecorder-Fuel
-- EventRecorder-Server 
-- EventRecorder-Help
+  -- EventRecorder
+  -- EventRecorder-Inspector
+  -- EventRecorder-Fuel
+  -- EventRecorder-Server 
+  -- EventRecorder-Help
