@@ -1,5 +1,5 @@
 # EventRecorder
-I'm a little framework to collect data from Pharo and publish it on server.
+I'm a little framework to collect data (user actions, status, systems...) from Pharo and its tools and publish it on server.
 
 This framework has been developed by the GT team (probably T. Girba, A. Chis and others). 
 Since this is a cool framework to support user experiences and collect information that for tool builders
