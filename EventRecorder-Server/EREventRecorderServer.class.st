@@ -5,7 +5,7 @@ Check my two start and stop methods on the class side.
 Class {
 	#name : #EREventRecorderServer,
 	#superclass : #Object,
-	#category : #'EventRecorder-Server-Core'
+	#category : #'EventRecorder-Server'
 }
 
 { #category : #accessing }

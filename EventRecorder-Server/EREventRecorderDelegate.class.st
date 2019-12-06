@@ -6,7 +6,7 @@ Class {
 		'putHandler',
 		'zipHandler'
 	],
-	#category : #'EventRecorder-Server-Core'
+	#category : #'EventRecorder-Server'
 }
 
 { #category : #public }

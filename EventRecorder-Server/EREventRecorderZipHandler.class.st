@@ -15,7 +15,7 @@ Class {
 		'zipRootUrl',
 		'archiver'
 	],
-	#category : #'EventRecorder-Server-Core'
+	#category : #'EventRecorder-Server'
 }
 
 { #category : #accessing }

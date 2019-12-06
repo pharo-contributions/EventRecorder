@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'directory'
 	],
-	#category : #'EventRecorder-Server-Core'
+	#category : #'EventRecorder-Server'
 }
 
 { #category : #accessing }
