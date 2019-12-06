@@ -5,11 +5,11 @@ This framework has been developed by the GT team (probably T. Girba, A. Chis and
 Since this is a cool framework to support user experiences and collect information that for tool builders
 can use to write nice research articles, I decided to invest in it and repackage it to avoid to have everything in a single package.
 
-Here is what I did 
+Migration steps done:
 
-- ported to Pharo8 (still 3 tests failing)
+- ported the client part to Pharo8
 - ported the server part from smalltalkhub to github
-- renamed classes and packages to avoid clash
+- renamed classes (GT* to ER*) and packages to avoid clash
 - added a little spec2 UI to avoid dependency with the old brick widget
 - rescued tests (removed duplicated tests some were already included into System-Identification-Tests)
 - split packages to have better structure
@@ -18,3 +18,13 @@ Here is what I did
 .. EventRecorder-Fuel
 .. EventRecorder-Server 
 .. EventRecorder-Help
+
+## Installation
+
+Load in a Pharo 8 with:
+~~~
+Metacello new 
+  baseline: 'EventRecorder'; 
+  repository: 'github://pharo-contributions/EventRecorder/';
+  load.
+~~~
