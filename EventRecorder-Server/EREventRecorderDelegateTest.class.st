@@ -39,7 +39,7 @@ EREventRecorderDelegateTest >> setUp [
 		fileDirectory: fileSystem workingDirectory / 'files';
 		zipRootUrl: 'http://localhost/gt/zip' asZnUrl;
 		archiver: self.
-	server := GTEventRecorderTestServer new.
+	server := EREventRecorderTestServer new.
 	server initializeUsingDelegate: delegate semaphore: serverSemaphore.
 	client := ZnClient new
 		url: server url;
@@ -110,7 +110,7 @@ EREventRecorderDelegateTest >> testHandleGetFromRoot [
 { #category : #tests }
 EREventRecorderDelegateTest >> testHandleGetFromRoot2 [
 	| contents |
-	client path: '//'; get.
+	client path: '/'; get.
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.

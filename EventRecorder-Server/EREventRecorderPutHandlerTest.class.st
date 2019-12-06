@@ -65,7 +65,7 @@ EREventRecorderPutHandlerTest >> setUpServer [
 	handler storage: self.
 	delegate := ZnDispatcherDelegate new.
 	delegate map: '/gt/events' to: handler.
-	server := GTEventRecorderTestServer new.
+	server := EREventRecorderTestServer new.
 	server initializeUsingDelegate: delegate semaphore: receiverSemaphore.
 	server url
 		addPathSegment: 'gt';

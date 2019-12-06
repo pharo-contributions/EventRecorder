@@ -7,7 +7,7 @@ Class {
 	#category : #'EventRecorder-Server-Core'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 EREventRecorderFileStorage >> atCategory: aString put: aByteArray [
 	| subDirectory date monthDirectoryName monthDirectory fileName file |
 	subDirectory := (self directory / aString) ensureCreateDirectory; yourself.
@@ -21,7 +21,7 @@ EREventRecorderFileStorage >> atCategory: aString put: aByteArray [
 		fileName := fileName, '-time-', DateAndTime now asUnixTime printString.
 		file := monthDirectory / fileName ].
 	file ensureDelete.
-	file writeStreamDo: [ :aStream | aStream nextPutAll: aByteArray ].
+	file binaryWriteStreamDo: [ :aStream | aStream nextPutAll: aByteArray ].
 	^ aString, '/', monthDirectoryName, '/', fileName
 ]
 
@@ -35,7 +35,7 @@ EREventRecorderFileStorage >> directory: anObject [
 	directory := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 EREventRecorderFileStorage >> put: aByteArray [
 	^ self atCategory: #unspecified put: aByteArray
 ]
