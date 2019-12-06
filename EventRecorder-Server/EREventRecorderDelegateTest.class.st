@@ -110,7 +110,7 @@ EREventRecorderDelegateTest >> testHandleGetFromRoot [
 { #category : #tests }
 EREventRecorderDelegateTest >> testHandleGetFromRoot2 [
 	| contents |
-	client path: '//'; get.
+	client path: '/'; get.
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.
