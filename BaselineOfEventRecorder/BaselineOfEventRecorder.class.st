@@ -10,32 +10,38 @@ BaselineOfEventRecorder >> baseline: spec [
   spec
     for: #common do: [ 
       spec
-			package: 'EventRecorder' 
-			"with: [ spec requires: #('System-Identification' 
-													'Compression'  'STON-Core' 'Zinc-HTTP')]".
+			package: 'EventRecorder'.
+		spec 
+			package: 'EventRecorder-Tests'
+			with: [ spec requires: #( 'EventRecorder' ) ].
 		spec 
 			package: 'EventRecorder-Fuel'
 			with: [ spec requires: #( 'EventRecorder' ) ].
-			"with: [ spec requires: #( 'Fuel-Core' 'EventRecorder' ) ]."
+		spec 
+			package: 'EventRecorder-Fuel-Tests'
+			with: [ spec requires: #( 'EventRecorder-Fuel' ) ].
 		spec 
 			package: 'EventRecorder-Inspector'
 			with: [ spec requires: #( 'EventRecorder' ) ].
 		spec 
 			package: 'EventRecorder-Help'
-			"with: [ spec requires: #( 'EventRecorder' 'HelpSystem-Core') ]."
 			with: [ spec requires: #( 'EventRecorder') ].
 		spec 
 			package: 'EventRecorder-UI'
 			with: [ spec requires: #( 'EventRecorder') ].
 		spec 
+			package: 'EventRecorder-UI-Tests'
+			with: [ spec requires: #( 'EventRecorder-UI') ].
+		spec 
 			package: 'EventRecorder-Server'
 			with: [ spec requires: #( 'EventRecorder') ].
+		spec 
+			package: 'EventRecorder-Server-Tests'
+			with: [ spec requires: #( 'EventRecorder-Server') ].
 		
-		"should be better done"
-		"spec postLoadDoIt: #postLoadActions" 
 		spec 
 			group: 'Core' with: #('EventRecorder' );
-			group: 'All' with: #('EventRecorder' 'EventRecorder-Fuel' 'EventRecorder-UI' 'EventRecorder-Server' 'EventRecorder-Help' 'EventRecorder-Inspector')
+			group: 'default' with: #('EventRecorder-Tests' 'EventRecorder-Fuel-Tests' 'EventRecorder-UI-Tests' 'EventRecorder-Server-Tests' 'EventRecorder-Help' 'EventRecorder-Inspector')
 		
 		]
 

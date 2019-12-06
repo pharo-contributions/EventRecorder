@@ -1,7 +1,7 @@
 Class {
 	#name : #ERPrivacyAgreementPresenterTest,
 	#superclass : #TestCase,
-	#category : #'EventRecorder-UI'
+	#category : #'EventRecorder-UI-Tests'
 }
 
 { #category : #tests }
