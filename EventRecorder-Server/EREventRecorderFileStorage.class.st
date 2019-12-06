@@ -21,7 +21,7 @@ EREventRecorderFileStorage >> atCategory: aString put: aByteArray [
 		fileName := fileName, '-time-', DateAndTime now asUnixTime printString.
 		file := monthDirectory / fileName ].
 	file ensureDelete.
-	file writeStreamDo: [ :aStream | aStream nextPutAll: aByteArray ].
+	file writeStreamDo: [ :aStream | aStream nextPutAll: aByteArray asString ].
 	^ aString, '/', monthDirectoryName, '/', fileName
 ]
 
