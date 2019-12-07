@@ -80,7 +80,7 @@ ERPrivacyAgreementPresenter >> privacyMessage [
 
 { #category : #initialize }
 ERPrivacyAgreementPresenter >> sendUsageData [	
-	^ Privacy sendDiagnosticsAndUsageData 
+	^ ERPrivacy sendDiagnosticsAndUsageData 
 ]
 
 { #category : #initialize }
