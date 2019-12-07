@@ -11,7 +11,7 @@ Class {
 		'server',
 		'url'
 	],
-	#category : #'EventRecorder-Tests-Core'
+	#category : #'EventRecorder-Tests'
 }
 
 { #category : #initialization }
