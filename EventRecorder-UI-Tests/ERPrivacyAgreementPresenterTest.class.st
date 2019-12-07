@@ -9,13 +9,13 @@ ERPrivacyAgreementPresenterTest >> testMessage [
 
 	| previousSetting |
 	[ | presenter |
-	previousSetting := Privacy sendDiagnosticsAndUsageData.
+	previousSetting := ERPrivacy sendDiagnosticsAndUsageData.
 	presenter := ERPrivacyAgreementPresenter new.
-	Privacy sendDiagnosticsAndUsageData: true.
+	ERPrivacy sendDiagnosticsAndUsageData: true.
 	self assert: presenter privacyMessage equals: presenter sendingMessage.
-	Privacy sendDiagnosticsAndUsageData: false.
+	ERPrivacy sendDiagnosticsAndUsageData: false.
 	self assert: presenter privacyMessage equals: presenter notSendingMessage ]
-		ensure: [ Privacy sendDiagnosticsAndUsageData: previousSetting ]
+		ensure: [ ERPrivacy sendDiagnosticsAndUsageData: previousSetting ]
 ]
 
 { #category : #tests }
