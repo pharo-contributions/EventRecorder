@@ -5,26 +5,14 @@ This framework has been developed by the GT team (probably T. Girba, A. Chis and
 Since this is a cool framework to support user experiences and collect information that for tool builders
 can use to write nice research articles, I decided to invest in it and repackage it to avoid to have everything in a single package.
 
-Migration steps done:
-
-- ported the client part to Pharo8
-- ported the server part from smalltalkhub to github
-- renamed classes (GT* to ER*) and packages to avoid clash
-- added a little spec2 UI to avoid dependency with the old brick widget
-- rescued tests (removed duplicated tests some were already included into System-Identification-Tests)
-- split packages to have better structure
-.. EventRecorder
-.. EventRecorder-Inspector
-.. EventRecorder-Fuel
-.. EventRecorder-Server 
-.. EventRecorder-Help
+This is the legacy version (the original developed version of GT EventRecorder)
 
 ## Installation
 
 Load in a Pharo 8 with:
 ~~~
 Metacello new 
+  repository: 'github://pharo-contributions/EventRecorder:legacy';
   baseline: 'EventRecorder'; 
-  repository: 'github://pharo-contributions/EventRecorder/';
   load.
 ~~~
