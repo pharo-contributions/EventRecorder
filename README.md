@@ -1,4 +1,5 @@
-# EventRecorder
+# EventRecorder [![Build Status](https://travis-ci.org/pharo-contributions/EventRecorder.png)](http://travis-ci.org/pharo-contributions/EventRecorder)
+
 I'm a little framework to collect data (user actions, status, systems...) from Pharo and its tools and publish it on server.
 
 This framework has been developed by the GT team (probably T. Girba, A. Chis and others). 
