@@ -26,6 +26,6 @@ Load in a Pharo 8 with:
 ~~~
 Metacello new 
   baseline: 'EventRecorder'; 
-  repository: 'github://pharo-contributions/EventRecorder/';
+  repository: 'github://Pharo-XP-Tools/EventRecorder/';
   load.
 ~~~
