@@ -22,10 +22,9 @@ Migration steps done:
 
 ## Installation
 
-Load in a Pharo 8 with:
 ~~~
 Metacello new 
   baseline: 'EventRecorder'; 
   repository: 'github://Pharo-XP-Tools/EventRecorder/';
-  load.
+  load: #('Core').
 ~~~
