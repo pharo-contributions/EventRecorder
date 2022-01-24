@@ -47,9 +47,7 @@ Class {
 		'category',
 		'recordedEvents',
 		'registry',
-		'updateAnnouncementBlock',
-		'xp',
-		'task'
+		'updateAnnouncementBlock'
 	],
 	#category : #'EventRecorder-Core'
 }

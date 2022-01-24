@@ -23,9 +23,7 @@ Class {
 	#name : #EREventAnnouncement,
 	#superclass : #Announcement,
 	#instVars : [
-		'dictionary',
-		'xp',
-		'task'
+		'dictionary'
 	],
 	#category : #'EventRecorder-Announcements'
 }
