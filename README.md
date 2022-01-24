@@ -22,7 +22,7 @@ Migration steps done:
 
 ## Installation
 
-
+Load into Pharo 8 and 9:
 ~~~
 Metacello new 
   baseline: 'EventRecorder'; 
