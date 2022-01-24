@@ -28,6 +28,11 @@ Class {
 	#category : #'EventRecorder-Support'
 }
 
+{ #category : #defaults }
+EREventDelivery class >> defaultStandardDuration [
+	^20 minutes
+]
+
 { #category : #activation }
 EREventDelivery >> activate [
 	"Initialize a delivery process."
