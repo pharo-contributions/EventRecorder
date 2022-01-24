@@ -11,7 +11,9 @@ Class {
 	#instVars : [
 		'url',
 		'category',
-		'data'
+		'data',
+		'xp',
+		'task'
 	],
 	#category : #'EventRecorder-Support'
 }

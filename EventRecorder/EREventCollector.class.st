@@ -47,7 +47,9 @@ Class {
 		'category',
 		'recordedEvents',
 		'registry',
-		'updateAnnouncementBlock'
+		'updateAnnouncementBlock',
+		'xp',
+		'task'
 	],
 	#category : #'EventRecorder-Core'
 }
@@ -131,6 +133,20 @@ EREventCollector >> isLiberated [
 EREventCollector >> liberate [
 	"Liberate me from the occupant so I can be removed from GTEventRecorder object in the next delivery cycle."
 	^ self registry liberate.
+]
+
+{ #category : #packing }
+EREventCollector >> newAnnouncement [
+	^ EREventAnnouncement new
+]
+
+{ #category : #packing }
+EREventCollector >> newAnnouncementForPacking [
+
+	| announcement |
+	announcement := self newAnnouncement.
+	announcement category: self category.
+	^ announcement
 ]
 
 { #category : #accessing }
