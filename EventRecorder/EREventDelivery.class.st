@@ -22,10 +22,16 @@ Class {
 		'permission',
 		'recorder',
 		'queue',
-		'preSuspendingAction'
+		'preSuspendingAction',
+		'standardDuration'
 	],
 	#category : #'EventRecorder-Support'
 }
+
+{ #category : #defaults }
+EREventDelivery class >> defaultStandardDuration [
+	^20 minutes
+]
 
 { #category : #activation }
 EREventDelivery >> activate [
@@ -112,7 +118,8 @@ EREventDelivery >> initialize [
 	super initialize.
 	mutex := Mutex new.
 	queue := WaitfreeQueue new.
-	permission := true
+	permission := true.
+	standardDuration := 20 minutes
 ]
 
 { #category : #initialization }
@@ -222,7 +229,13 @@ EREventDelivery >> size [
 
 { #category : #accessing }
 EREventDelivery >> standardDuration [
-	^ 20 minutes
+	^ standardDuration ifNil:[standardDuration := self class defaultStandardDuration]
+]
+
+{ #category : #accessing }
+EREventDelivery >> standardDuration: aDuration [
+
+	standardDuration := aDuration
 ]
 
 { #category : #deactivation }

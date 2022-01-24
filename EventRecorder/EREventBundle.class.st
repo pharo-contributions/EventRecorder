@@ -46,6 +46,12 @@ EREventBundle >> entity [
 	^ ZnByteArrayEntity bytes: self data
 ]
 
+{ #category : #visitor }
+EREventBundle >> newMultiBundle [
+
+	^ EREventMultiBundle new
+]
+
 { #category : #accessing }
 EREventBundle >> url [
 	^ url

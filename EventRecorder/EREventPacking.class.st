@@ -29,6 +29,25 @@ EREventPacking class >> ston [
 ]
 
 { #category : #private }
+EREventPacking >> buildAnnouncementFor: anEREventCollector [
+
+	| announcement |
+	announcement := anEREventCollector newAnnouncementForPacking.
+	announcement
+		data: (self serialize: anEREventCollector bundle);
+		serializedBy: self class name;
+		eventRecorderVersion: self version;
+		timestamp: DateAndTime now;
+		imageHash: SmalltalkImage current imagePath hash;
+		imageVersion: SystemVersion current version;
+		latestUpdate: SystemVersion current commitHash;
+		computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
+		sessionUUID: SmalltalkImage current session id asString;
+		sessionCreationTime: SmalltalkImage current session creationTime.
+	^ anEREventCollector updateAnnouncement: announcement
+]
+
+{ #category : #private }
 EREventPacking >> materialize: aByteArray [
 	^ self subclassResponsibility
 ]
@@ -38,28 +57,18 @@ EREventPacking >> migrations: anObject [
 	"Ignore by default. Subclasses can overwrite it."
 ]
 
-{ #category : #'instance creation' }
-EREventPacking >> newAnnouncement [
-	^ EREventAnnouncement new
-]
-
 { #category : #private }
 EREventPacking >> newAnnouncementFor: aGTEventCollector [
-	| announcement |
-	announcement := self 
-		updateAnnouncement: self newAnnouncement 
-		for: aGTEventCollector.
-	aGTEventCollector updateAnnouncement: announcement.
-	^ announcement
+
+	^self buildAnnouncementFor: aGTEventCollector
 ]
 
 { #category : #packing }
-EREventPacking >> pack: aGTEventCollector [
-	^ EREventBundle new
-			url: aGTEventCollector url;
-			category: aGTEventCollector category;
-			data: (self packCollector: aGTEventCollector);
-			yourself
+EREventPacking >> pack: anEREventCollector [
+
+	^ anEREventCollector newBundleForPacking
+		  data: (self packCollector: anEREventCollector);
+		  yourself
 ]
 
 { #category : #private }
@@ -81,23 +90,6 @@ EREventPacking >> technologyName [
 { #category : #packing }
 EREventPacking >> unpack: aByteArray [
 	^ self materialize: aByteArray
-]
-
-{ #category : #private }
-EREventPacking >> updateAnnouncement: aGTEventAnnouncement for: aGTEventCollector [
-	^ aGTEventAnnouncement
-			data: (self serialize: aGTEventCollector bundle);
-			category: aGTEventCollector category;
-			serializedBy: self class name;
-			eventRecorderVersion: self version;
-			timestamp: DateAndTime now;
-			imageHash: SmalltalkImage current imagePath hash;
-			imageVersion: SystemVersion current version;
-			latestUpdate: SystemVersion current commitHash;
-			computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
-			sessionUUID: SmalltalkImage current session id asString;
-			sessionCreationTime: SmalltalkImage current session creationTime;
-			yourself
 ]
 
 { #category : #accessing }
