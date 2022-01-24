@@ -64,12 +64,11 @@ EREventPacking >> newAnnouncementFor: aGTEventCollector [
 ]
 
 { #category : #packing }
-EREventPacking >> pack: aGTEventCollector [
-	^ EREventBundle new
-			url: aGTEventCollector url;
-			category: aGTEventCollector category;
-			data: (self packCollector: aGTEventCollector);
-			yourself
+EREventPacking >> pack: anEREventCollector [
+
+	^ anEREventCollector newBundleForPacking
+		  data: (self packCollector: anEREventCollector);
+		  yourself
 ]
 
 { #category : #private }

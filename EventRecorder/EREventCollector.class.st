@@ -149,6 +149,23 @@ EREventCollector >> newAnnouncementForPacking [
 	^ announcement
 ]
 
+{ #category : #packing }
+EREventCollector >> newBundle [
+
+	^ EREventBundle new
+]
+
+{ #category : #packing }
+EREventCollector >> newBundleForPacking [
+
+	| bundle |
+	bundle := self newBundle.
+	bundle
+		url: self url;
+		category: self category.
+	^bundle
+]
+
 { #category : #accessing }
 EREventCollector >> occupant: anObject [ 
 	"anObject sends me data. I weakly keeps anObject and once it is released, I can be removed from GTEventRecorder object."

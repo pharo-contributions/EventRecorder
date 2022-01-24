@@ -48,6 +48,6 @@ EREventMultiBundleFactory >> visitSingleBundle: aSingleBundle [
 	| multiBundle |
 	multiBundle := multiBundles 
 							at: aSingleBundle url 
-							ifAbsentPut: [ EREventMultiBundle new url: aSingleBundle url; yourself ].
+							ifAbsentPut: [ aSingleBundle newMultiBundle url: aSingleBundle url; yourself ].
 	multiBundle add: aSingleBundle
 ]
